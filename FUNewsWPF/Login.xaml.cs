@@ -35,7 +35,7 @@ namespace FUNewsWPF
             if (systemAccount != null && systemAccount.AccountPassword.Equals(txtPass.Password) && systemAccount.AccountRole == 1)
             {
                 this.Hide();
-                NewsArticleUI newsArticleUI = new NewsArticleUI();
+                NewsArticleUI newsArticleUI = new NewsArticleUI(systemAccount);
                 newsArticleUI.Show();
                 /*CategoryUI categoryUI = new CategoryUI();
                 categoryUI.Show();*/

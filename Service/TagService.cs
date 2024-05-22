@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,35 +10,35 @@ namespace Service
 {
     public class TagService : ITagService
     {
-        private readonly ITagService iTagService;
+        private readonly ITagRepository iTagRepository;
 
         public TagService()
         {
-            iTagService = new TagService();
+            iTagRepository = new TagRepository();
         }
 
         public void SaveTag(Tag tag)
         {
-            iTagService.SaveTag(tag);
+            iTagRepository.SaveTag(tag);
         }
 
         public void DeleteTag(Tag tag)
         {
-            iTagService.DeleteTag(tag);
+            iTagRepository.DeleteTag(tag);
         }
 
         public void UpdateTag(Tag tag)
         {
-            iTagService.UpdateTag(tag);
+            iTagRepository.UpdateTag(tag);
         }
 
         public List<Tag> GetTags()
         {
-            return iTagService.GetTags();
+            return iTagRepository.GetTags();
         }
         public Tag GetTagById(int id)
         {
-            return iTagService.GetTagById(id);
+            return iTagRepository.GetTagById(id);
         }
 
     }

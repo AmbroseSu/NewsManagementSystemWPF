@@ -18,7 +18,7 @@
 
         <TextBlock Text="News Article Management" FontSize="28" FontWeight="Bold" Foreground="#2E86C1" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
-        <GroupBox Header="News Article Details" Grid.Row="1" Margin="0,0,0,20" FontSize="16">
+        <GroupBox Header="News Article Details" Margin="0,43,0,34" FontSize="16" Grid.RowSpan="2">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
@@ -30,52 +30,75 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Label Content="News Article ID" Grid.Row="0" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtNewsArticleId" Grid.Row="0" Grid.Column="1" Margin="5" IsEnabled="False"/>
+                <TextBox x:Name="txtNewsArticleId" Grid.Row="0" Grid.Column="1" Margin="5" IsEnabled="True"/>
 
                 <Label Content="News Title" Grid.Row="1" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
                 <TextBox x:Name="txtNewsTitle" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
                 <Label Content="News Content" Grid.Row="2" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtNewsContent" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                <TextBox x:Name="txtNewsContent" Grid.Row="2" Grid.Column="1" Margin="5" TextWrapping="Wrap" MaxHeight="100"/>
 
                 <Label Content="Category" Grid.Row="3" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtCategory" Grid.Row="3" Grid.Column="1" Margin="5"/>
+                <ComboBox x:Name="cboCategory" Grid.Row="3" Grid.Column="1" Margin="5"/>
 
                 <Label Content="News Status" Grid.Row="4" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtNewsStatus" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                <StackPanel x:Name="spStatus" Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="5">
+                    <RadioButton x:Name="rbNewsStatusTrue" Content="True" GroupName="NewsStatus" Margin="0,0,10,0"/>
+                    <RadioButton x:Name="rbNewsStatusFalse" Content="False" GroupName="NewsStatus"/>
+                </StackPanel>
+                <Label Content="Tags" Grid.Row="5" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+                <ListBox x:Name="lstTags" Grid.Row="5" Grid.Column="1" Margin="5" SelectionMode="Multiple">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Grid.Column="0" Content="{Binding TagName}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Grid>
         </GroupBox>
 
-        <Border Grid.Row="2" BorderBrush="#2E86C1" BorderThickness="2" CornerRadius="5">
+
+        <Border Grid.Row="1" BorderBrush="#2E86C1" BorderThickness="2" CornerRadius="5" Margin="0,144,0,0" Grid.RowSpan="2">
             <DataGrid x:Name="dgNewsArticles" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="LightGray" GridLinesVisibility="Horizontal"
               ScrollViewer.CanContentScroll="False"
               ScrollViewer.VerticalScrollBarVisibility="Auto"
-              ScrollViewer.HorizontalScrollBarVisibility="Auto">
+              ScrollViewer.HorizontalScrollBarVisibility="Auto" SelectionChanged="dgNewsArticles_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="NewsArticleId" Binding="{Binding NewsArticleId}" Width="90"/>
-                    <DataGridTemplateColumn Header="NewsTitle" Width="150">
+                    <DataGridTemplateColumn Header="NewsTitle" Width="200">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding NewsTitle}" TextWrapping="Wrap"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="CreatedDate" Binding="{Binding CreatedDate}" Width="*"/>
-                    <DataGridTemplateColumn Header="NewsContent" Width="150">
+                    <DataGridTextColumn Header="CreatedDate" Binding="{Binding CreatedDate}" Width="110"/>
+                    <DataGridTemplateColumn Header="NewsContent" Width="200">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding NewsContent}" TextWrapping="Wrap"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Category" Binding="{Binding Category.CategoryName}" Width="*"/>
-                    <DataGridTextColumn Header="NewsStatus" Binding="{Binding NewsStatus}" Width="*"/>
-                    <DataGridTextColumn Header="CreatedById" Binding="{Binding CreatedById}" Width="*"/>
-                    <DataGridTextColumn Header="ModifiedDate" Binding="{Binding ModifiedDate}" Width="*"/>
-                    <DataGridTemplateColumn Header="Tags" Width="200">
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category.CategoryName}" Width="100"/>
+                    <DataGridTextColumn Header="NewsStatus" Binding="{Binding NewsStatus}" Width="80"/>
+                    <DataGridTextColumn Header="CreatedById" Binding="{Binding CreatedById}" Width="100"/>
+                    <DataGridTextColumn Header="ModifiedDate" Binding="{Binding ModifiedDate}" Width="150"/>
+                    <DataGridTemplateColumn Header="Tags" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ItemsControl ItemsSource="{Binding Tags}">
@@ -92,11 +115,13 @@
             </DataGrid>
         </Border>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3" Margin="0,16,204,4">
-            <Button x:Name="btnCreate" Content="Create" Width="100" Margin="5" Background="#4CAF50" Foreground="White" Padding="10,5" />
-            <Button x:Name="btnUpdate" Content="Update" Width="100" Margin="5" Background="#2196F3" Foreground="White" Padding="10,5" />
-            <Button x:Name="btnDelete" Content="Delete" Width="100" Margin="5" Background="#F44336" Foreground="White" Padding="10,5" />
-            <Button x:Name="btnClose" Content="Close" Width="100" Margin="5" Background="#FF9800" Foreground="White" Padding="10,5" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="3" Margin="116,16,0,4">
+            <Button x:Name="btnCreate" Content="Create" Width="100" Margin="5" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnCreate_Click" />
+            <Button x:Name="btnUpdate" Content="Update" Width="100" Margin="5" Background="#2196F3" Foreground="White" Padding="10,5" Click="btnUpdate_Click" />
+            <Button x:Name="btnDelete" Content="Delete" Width="100" Margin="5" Background="#F44336" Foreground="White" Padding="10,5" Click="btnDelete_Click" />
+            <Button x:Name="btnReset" Content="Reset" Width="100" Margin="5" Background="#FFC107" Foreground="White" Padding="10,5" Click="btnReset_Click"/>
+            <Button x:Name="btnClose" Content="Close" Width="100" Margin="5" Background="#FF9800" Foreground="White" Padding="10,5" Click="btnClose_Click" />
+            <Button x:Name="btnLogin" Content="Login" Width="100" Margin="5" Background="#FF9800" Foreground="White" Padding="10,5"  />
         </StackPanel>
     </Grid>
 </Window>
