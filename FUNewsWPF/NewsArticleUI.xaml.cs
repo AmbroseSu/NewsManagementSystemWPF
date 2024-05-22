@@ -436,5 +436,10 @@ namespace FUNewsWPF
                 }
             }
         }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

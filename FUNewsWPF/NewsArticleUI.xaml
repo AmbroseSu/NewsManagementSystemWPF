@@ -121,7 +121,7 @@
             <Button x:Name="btnDelete" Content="Delete" Width="100" Margin="5" Background="#F44336" Foreground="White" Padding="10,5" Click="btnDelete_Click" />
             <Button x:Name="btnReset" Content="Reset" Width="100" Margin="5" Background="#FFC107" Foreground="White" Padding="10,5" Click="btnReset_Click"/>
             <Button x:Name="btnClose" Content="Close" Width="100" Margin="5" Background="#FF9800" Foreground="White" Padding="10,5" Click="btnClose_Click" />
-            <Button x:Name="btnLogin" Content="Login" Width="100" Margin="5" Background="#FF9800" Foreground="White" Padding="10,5"  />
+            <Button x:Name="btnLogin" Content="Login" Width="100" Margin="5" Background="#FF9800" Foreground="White" Padding="10,5" Click="btnLogin_Click"  />
         </StackPanel>
     </Grid>
 </Window>
