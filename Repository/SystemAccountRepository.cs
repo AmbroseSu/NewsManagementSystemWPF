@@ -1,0 +1,19 @@
+﻿using BusinessObject;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataAccess;
+
+namespace Repository
+{
+    public class SystemAccountRepository : ISystemAccountRepository
+    {
+        public void SaveAccount(SystemAccount account) => AccountDAO.SaveAccount(account);
+        public void DeleteAccount(SystemAccount account) => AccountDAO.DeleteAccount(account);
+        public void UpdateAccount(SystemAccount account) => AccountDAO.UpdateAccount(account);  
+        public List<SystemAccount> GetSystemAccounts() => AccountDAO.GetSystemAccounts();
+        public SystemAccount GetSystemAccountById(string accountEmail) => AccountDAO.GetAccountById(accountEmail);
+    }
+}
