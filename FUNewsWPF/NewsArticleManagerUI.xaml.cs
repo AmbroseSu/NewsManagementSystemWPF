@@ -158,6 +158,15 @@ namespace FUNewsWPF
                         return;
                     }
                 }
+                if (string.IsNullOrWhiteSpace(txtNewsArticleId.Text) ||
+                    string.IsNullOrWhiteSpace(txtNewsTitle.Text) ||
+                    string.IsNullOrWhiteSpace(txtNewsContent.Text) ||
+                    cboCategory.SelectedValue == null ||
+                    account == null)
+                {
+                    MessageBox.Show("All fields must be filled in and a category must be selected.");
+                    return;
+                }
 
                 newsArticle.NewsArticleId = txtNewsArticleId.Text;
                 newsArticle.NewsTitle = txtNewsTitle.Text;
@@ -201,7 +210,7 @@ namespace FUNewsWPF
                         context.Set<Dictionary<string, object>>("NewsTag").Add(nt);
                     }
                     context.SaveChanges();
-                    MessageBox.Show("News article updated successfully.");
+                    MessageBox.Show("News article updated successfully.");                    
                     //ResetInput();
                 }
             }
@@ -212,7 +221,7 @@ namespace FUNewsWPF
             finally
             {
                 //LoadCategoryList();
-                this.Close();
+                //this.Close();
                 //LoadTagList();
 
             }
