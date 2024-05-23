@@ -35,10 +35,10 @@
                 <TextBox x:Name="txtCategoryId" Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" IsEnabled="False" Grid.RowSpan="2"/>
 
                 <Label Content="Category Name" Grid.Row="2" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtCategoryName" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5"/>
+                <TextBox x:Name="txtCategoryName" Grid.Row="2" Grid.Column="1" IsEnabled="False" Margin="5,5,5,5"/>
 
                 <Label Content="Category Description" Grid.Row="3" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtCategoryDescription" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                <TextBox x:Name="txtCategoryDescription" Grid.Row="3" Grid.Column="1" IsEnabled="False" Margin="5,5,5,5" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
             </Grid>
         </GroupBox>
 

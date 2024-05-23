@@ -26,16 +26,29 @@ namespace FUNewsWPF
         private readonly INewsArticleService iNewsArticleService;
         private readonly ICategoryService iCategoryService;
         private readonly ITagService iTagService;
-        private readonly SystemAccount account;
+        private SystemAccount account;
         private Dictionary<string, bool> tagSelectionStatus = new Dictionary<string, bool>();
-        public NewsArticleUI(SystemAccount systemAccount)
+        /*public NewsArticleUI(SystemAccount systemAccount)
         {
             InitializeComponent();
             iNewsArticleService = new NewsArticleService();
             iCategoryService = new CategoryService();
             iTagService = new TagService();
             account = systemAccount;
+            if (account != null)
+            {
+                DisableEditingFeatures();
+            }
+        }*/
+
+        public NewsArticleUI()
+        {
+            InitializeComponent();
+            iNewsArticleService = new NewsArticleService();
+            iCategoryService = new CategoryService();
+            iTagService = new TagService();
         }
+
 
         public void LoadNewsArticlesList()
         {
@@ -83,6 +96,10 @@ namespace FUNewsWPF
             LoadNewsArticlesList();
             LoadCategoryList();
             LoadTagList();
+            if (account == null)
+            {
+                DisableEditingFeatures();
+            }
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -439,7 +456,47 @@ namespace FUNewsWPF
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-
+            Login login = new Login();
+            if (login.ShowDialog() == true)
+            {
+                account = login.LoggedInAccount;
+                EnableEditingFeatures(); // Kích hoạt các chức năng chỉnh sửa
+            }
         }
+
+        private void DisableEditingFeatures()
+        {
+            btnCreate.IsEnabled = false;
+
+            btnUpdate.IsEnabled = false;          
+
+            btnDelete.IsEnabled = false;
+
+            btnReset.IsEnabled = false;
+
+            txtNewsArticleId.IsEnabled = false;
+            txtNewsTitle.IsEnabled = false;
+            txtNewsContent.IsEnabled = false;
+            cboCategory.IsEnabled = false;
+            rbNewsStatusTrue.IsEnabled = false;
+            rbNewsStatusFalse.IsEnabled = false;
+            lstTags.IsEnabled = false;
+        }
+
+        private void EnableEditingFeatures()
+        {
+            btnCreate.IsEnabled = true;
+            btnUpdate.IsEnabled = true;
+            btnDelete.IsEnabled = true;
+            btnReset.IsEnabled = true;
+            txtNewsArticleId.IsEnabled = true;
+            txtNewsTitle.IsEnabled = true;
+            txtNewsContent.IsEnabled = true;
+            cboCategory.IsEnabled = true;
+            rbNewsStatusTrue.IsEnabled = true;
+            rbNewsStatusFalse.IsEnabled = true;
+            lstTags.IsEnabled = true;
+        }
+
     }
 }

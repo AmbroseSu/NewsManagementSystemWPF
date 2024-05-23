@@ -171,3 +171,5 @@ D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\refint\FUNewsWPF.dll
 D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\FUNewsWPF.pdb
 D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\FUNewsWPF.genruntimeconfig.cache
 D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\ref\FUNewsWPF.dll
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\CreateCategoryUI.g.cs
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\CreateCategoryUI.baml

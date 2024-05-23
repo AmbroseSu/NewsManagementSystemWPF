@@ -22,6 +22,7 @@ namespace FUNewsWPF
     public partial class Login : Window
     {
         private readonly ISystemAccountService iSystemAccountService;
+        public SystemAccount LoggedInAccount { get; private set; }
         public Login()
         {
             InitializeComponent();
@@ -34,11 +35,15 @@ namespace FUNewsWPF
             
             if (systemAccount != null && systemAccount.AccountPassword.Equals(txtPass.Password) && systemAccount.AccountRole == 1)
             {
-                this.Hide();
+/*                this.Hide();
                 NewsArticleUI newsArticleUI = new NewsArticleUI(systemAccount);
-                newsArticleUI.Show();
+                newsArticleUI.Show();*/
                 /*CategoryUI categoryUI = new CategoryUI();
                 categoryUI.Show();*/
+                LoggedInAccount = systemAccount;
+                this.DialogResult = true; // Đóng cửa sổ và trả về kết quả thành công
+                this.Close();
+
             }
             else
             {

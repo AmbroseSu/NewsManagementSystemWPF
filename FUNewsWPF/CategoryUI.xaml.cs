@@ -61,22 +61,15 @@ namespace FUNewsWPF
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Category category = new Category();
-                category.CategoryName = txtCategoryName.Text;
-                category.CategoryDesciption = txtCategoryDescription.Text;
-                iCategoryService.SaveCategory(category);
+           
+            CreateCategoryUI createCategoryUI = new CreateCategoryUI();
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                LoadCategoryList() ;
-            }
+            // Mở cửa sổ CreateCategoryUI
+            createCategoryUI.Show();
+            createCategoryUI.Closed += (s, args) => {
+                // Load lại danh sách Category khi cửa sổ CreateCategoryUI được đóng
+                LoadCategoryList();
+            };
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -86,24 +79,27 @@ namespace FUNewsWPF
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            try
+            
+            if (dgCategories.SelectedItem != null)
             {
-                if(txtCategoryId.Text.Length > 0)
-                {
-                    Category category = new Category();
-                    category.CategoryId = short.Parse(txtCategoryId.Text);
-                    category.CategoryName = txtCategoryName.Text;
-                    category.CategoryDesciption = txtCategoryDescription.Text ;
-                    iCategoryService.UpdateCategory(category);
-                }
+                // Lấy dữ liệu của dòng được chọn
+                Category selectedCategory = dgCategories.SelectedItem as Category;
+
+                // Tạo một instance của CreateCategoryUI
+                CreateCategoryUI createCategoryUI = new CreateCategoryUI(selectedCategory);
+
+                // Mở cửa sổ CreateCategoryUI
+                createCategoryUI.Show();
+
+                // Đăng ký sự kiện xử lý khi cửa sổ CreateCategoryUI được đóng
+                createCategoryUI.Closed += (s, args) => {
+                    // Load lại danh sách Category khi cửa sổ CreateCategoryUI được đóng
+                    LoadCategoryList();
+                };
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("You must select a Category !");
-            }
-            finally
-            {
-                LoadCategoryList();
+                MessageBox.Show("Please select a category to update.");
             }
         }
 
@@ -113,17 +109,28 @@ namespace FUNewsWPF
             {
                 if (txtCategoryId.Text.Length > 0)
                 {
-                    Category category = new Category();
-                    category.CategoryId = short.Parse(txtCategoryId.Text);
-                    category.CategoryName = txtCategoryName.Text;
-                    category.CategoryDesciption = txtCategoryName.Text;
-                    iCategoryService.DeleteCategory(category);
+                    // Hiển thị hộp thoại xác nhận
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this category?", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.OK)
+                    {
+                        // Nếu người dùng chọn OK
+                        Category category = new Category();
+                        category.CategoryId = short.Parse(txtCategoryId.Text);
+                        category.CategoryName = txtCategoryName.Text;
+                        category.CategoryDesciption = txtCategoryName.Text;
+                        iCategoryService.DeleteCategory(category);
+                    }
+                    else
+                    {
+                        // Nếu người dùng chọn Cancel hoặc đóng hộp thoại
+                        return;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("You must select");
+                    MessageBox.Show("You must select a category.");
                 }
-
             }
             catch (Exception ex)
             {
