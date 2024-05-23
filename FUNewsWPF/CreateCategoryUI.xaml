@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Create New Category" FontSize="28" FontWeight="Bold" Foreground="#2E86C1" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+        <TextBlock Text="New Category" FontSize="28" FontWeight="Bold" Foreground="#2E86C1" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
         <GroupBox Header="Category Details" Grid.Row="1" Margin="0,0,0,20" FontSize="16">
             <Grid Margin="10,0,9,0" Height="202">

@@ -16,6 +16,9 @@
     <Compile Update="Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="NewsArticleManagerUI.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="NewsArticleUI.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Login.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="NewsArticleManagerUI.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="NewsArticleUI.xaml">

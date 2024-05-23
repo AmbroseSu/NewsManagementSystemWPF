@@ -104,219 +104,89 @@ namespace FUNewsWPF
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-          
-            try
-            {
-                var neArList = iNewsArticleService.GetNewsArticles();
-                NewsArticle newsArticle = new NewsArticle();
+            NewsArticleManagerUI newsArticleManagerUI = new NewsArticleManagerUI(account);
 
-                // Check if ID already exists
-                foreach (var article in neArList)
-                {
-                    if (txtNewsArticleId.Text.Equals(article.NewsArticleId.ToString()))
-                    {
-                        MessageBox.Show("ID exists");
-                        return;
-                    }
-                }
-
-                newsArticle.NewsArticleId = txtNewsArticleId.Text;
-                newsArticle.NewsTitle = txtNewsTitle.Text;
-                newsArticle.CreatedDate = DateTime.Now;
-                newsArticle.NewsContent = txtNewsContent.Text;
-                newsArticle.CategoryId = short.Parse(cboCategory.SelectedValue.ToString());
-                newsArticle.NewsStatus = rbNewsStatusTrue.IsChecked == true;
-                newsArticle.CreatedById = account.AccountId;
-                newsArticle.ModifiedDate = DateTime.Now;
-
-                // Save NewsArticle first to get the generated ID
-                iNewsArticleService.SaveNewsArticle(newsArticle);
-
-                using (var context = new FunewsManagementDbContext())
-                {
-                    var selectedTags = new List<Dictionary<string, object>>();
-                    foreach (var item in lstTags.Items)
-                    {
-                        var listBoxItem = lstTags.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;
-                        var checkBox = FindVisualChild<CheckBox>(listBoxItem);
-                        if (checkBox != null && checkBox.IsChecked == true)
-                        {
-                            var tag = item as Tag;
-                            if (tag != null)
-                            {
-                                var tagFromDb = context.Tags.FirstOrDefault(t => t.TagName == tag.TagName);
-                                if (tagFromDb != null)
-                                {
-                                    selectedTags.Add(new Dictionary<string, object>
-                            {
-                                { "NewsArticleId", newsArticle.NewsArticleId },
-                                { "TagId", tagFromDb.TagId }
-                            });
-                                }
-                            }
-                        }
-                    }
-
-                    foreach (var nt in selectedTags)
-                    {
-                        context.Set<Dictionary<string, object>>("NewsTag").Add(nt);
-                    }
-                    context.SaveChanges();
-                    MessageBox.Show("News article updated successfully.");
-                    ResetInput();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                //LoadCategoryList();
+            // Mở cửa sổ CreateCategoryUI
+            newsArticleManagerUI.Show();
+            newsArticleManagerUI.Closed += (s, args) => {
+                // Load lại danh sách Category khi cửa sổ CreateCategoryUI được đóng
+                LoadCategoryList();
+                LoadTagList();
                 LoadNewsArticlesList();
-                //LoadTagList();
-                
-            }
+
+            };
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (dgNewsArticles.SelectedItem != null)
             {
-                
-                if (!string.IsNullOrWhiteSpace(txtNewsArticleId.Text))
-                {
-                    var newsArticleId = txtNewsArticleId.Text;
+                // Lấy dữ liệu của dòng được chọn
+                NewsArticle selectedNewsArticle = dgNewsArticles.SelectedItem as NewsArticle;
 
-                    using (var context = new FunewsManagementDbContext())
-                    {
-                        var existingArticle = context.NewsArticles
-                            .Include(na => na.Tags)
-                            .FirstOrDefault(na => na.NewsArticleId == newsArticleId);
+                // Tạo một instance của CreateCategoryUI
+                NewsArticleManagerUI newsArticleManagerUI = new NewsArticleManagerUI(selectedNewsArticle);
 
-                        if (existingArticle != null)
-                        {
-                            // Update properties of the existing article
-                            existingArticle.NewsTitle = txtNewsTitle.Text;
-                            existingArticle.NewsContent = txtNewsContent.Text;
-                            existingArticle.CategoryId = short.Parse(cboCategory.SelectedValue.ToString());
-                            existingArticle.NewsStatus = rbNewsStatusTrue.IsChecked == true;
-                            existingArticle.ModifiedDate = DateTime.Now;
+                // Mở cửa sổ CreateCategoryUI
+                newsArticleManagerUI.Show();
 
-                            // Update associated tags
-                            var selectedTags = new List<Tag>();
-                            foreach (var item in lstTags.Items)
-                            {
-                                var listBoxItem = lstTags.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;
-                                var checkBox = FindVisualChild<CheckBox>(listBoxItem);
-                                if (checkBox != null && checkBox.IsChecked == true)
-                                {
-                                    var tag = item as Tag;
-                                    if (tag != null)
-                                    {
-                                        selectedTags.Add(tag);
-                                    }
-                                }
-                            }
-
-                            existingArticle.Tags.Clear();
-                            foreach (var tag in selectedTags)
-                            {
-                                var existingTag = context.Tags.FirstOrDefault(t => t.TagId == tag.TagId);
-                                if (existingTag != null)
-                                {
-                                    existingArticle.Tags.Add(existingTag);
-                                }
-                            }
-
-                            context.SaveChanges();
-                            MessageBox.Show("News article updated successfully.");
-                            ResetInput();
-                        }
-                        else
-                        {
-                            MessageBox.Show("News article not found.");
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("You must select a news article to update.");
-                }
+                // Đăng ký sự kiện xử lý khi cửa sổ CreateCategoryUI được đóng
+                newsArticleManagerUI.Closed += (s, args) => {
+                    // Load lại danh sách Category khi cửa sổ CreateCategoryUI được đóng
+                    LoadCategoryList();
+                    LoadTagList() ;
+                    LoadNewsArticlesList() ;
+                };
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                LoadCategoryList();
-                LoadNewsArticlesList();
-                LoadTagList();
-                
+                MessageBox.Show("Please select a category to update.");
             }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            /*try
-            {
-                if(txtNewsArticleId.Text.Length > 0)
-                {
-                    NewsArticle newsArticle = new NewsArticle();
-                    newsArticle.NewsArticleId = txtNewsArticleId.Text;
-                    newsArticle.NewsTitle = txtNewsTitle.Text;
-                    newsArticle.NewsContent = txtNewsContent.Text;
-                    newsArticle.CategoryId = short.Parse(cboCategory.SelectedValue.ToString());
-                    newsArticle.NewsStatus = rbNewsStatusTrue.IsChecked == true;
-                    newsArticle.CreatedById = account.AccountId;
-                    iNewsArticleService.DeleteNewsArticle(newsArticle);
-                }
-                else
-                {
-                    MessageBox.Show("You must select");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                LoadCategoryList();
-                LoadNewsArticlesList() ; 
-                LoadTagList();
-            }*/
-
+           
             try
             {
                 if (!string.IsNullOrWhiteSpace(txtNewsArticleId.Text))
                 {
-                    var newsArticleId = txtNewsArticleId.Text;
+                    
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this News Article?", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
-                    using (var context = new FunewsManagementDbContext())
+                    if (result == MessageBoxResult.OK)
                     {
-                        var newsArticle = context.NewsArticles.Include(na => na.Tags)
-                            .FirstOrDefault(na => na.NewsArticleId == newsArticleId);
+                        var newsArticleId = txtNewsArticleId.Text;
 
-                        if (newsArticle != null)
+                        using (var context = new FunewsManagementDbContext())
                         {
-                            // Remove associated tags from the NewsTag table
-                            var newsTags = context.Set<Dictionary<string, object>>("NewsTag")
-                                .Where(nt => EF.Property<string>(nt, "NewsArticleId") == newsArticleId).ToList();
-                            context.Set<Dictionary<string, object>>("NewsTag").RemoveRange(newsTags);
+                            var newsArticle = context.NewsArticles.Include(na => na.Tags)
+                                .FirstOrDefault(na => na.NewsArticleId == newsArticleId);
 
-                            // Remove the NewsArticle
-                            context.NewsArticles.Remove(newsArticle);
+                            if (newsArticle != null)
+                            {
+                                // Remove associated tags from the NewsTag table
+                                var newsTags = context.Set<Dictionary<string, object>>("NewsTag")
+                                    .Where(nt => EF.Property<string>(nt, "NewsArticleId") == newsArticleId).ToList();
+                                context.Set<Dictionary<string, object>>("NewsTag").RemoveRange(newsTags);
 
-                            context.SaveChanges();
-                            MessageBox.Show("News article deleted successfully.");
-                            ResetInput();
+                                // Remove the NewsArticle
+                                context.NewsArticles.Remove(newsArticle);
+
+                                context.SaveChanges();
+                                MessageBox.Show("News article deleted successfully.");
+                                ResetInput();
+                            }
+                            else
+                            {
+                                MessageBox.Show("News article not found.");
+                            }
                         }
-                        else
-                        {
-                            MessageBox.Show("News article not found.");
-                        }
+                    }
+                    else
+                    {
+                        // Nếu người dùng chọn Cancel hoặc đóng hộp thoại
+                        return;
                     }
                 }
                 else
@@ -466,6 +336,7 @@ namespace FUNewsWPF
 
         private void DisableEditingFeatures()
         {
+            gbNewsArticleDetail.Visibility = Visibility.Collapsed;
             btnCreate.IsEnabled = false;
 
             btnUpdate.IsEnabled = false;          
@@ -485,17 +356,29 @@ namespace FUNewsWPF
 
         private void EnableEditingFeatures()
         {
+            gbNewsArticleDetail.Visibility = Visibility.Visible;
             btnCreate.IsEnabled = true;
             btnUpdate.IsEnabled = true;
             btnDelete.IsEnabled = true;
             btnReset.IsEnabled = true;
-            txtNewsArticleId.IsEnabled = true;
-            txtNewsTitle.IsEnabled = true;
-            txtNewsContent.IsEnabled = true;
-            cboCategory.IsEnabled = true;
-            rbNewsStatusTrue.IsEnabled = true;
-            rbNewsStatusFalse.IsEnabled = true;
-            lstTags.IsEnabled = true;
+            txtNewsArticleId.IsEnabled = false;
+            txtNewsTitle.IsEnabled = false;
+            txtNewsContent.IsEnabled = false;
+            cboCategory.IsEnabled = false;
+            rbNewsStatusTrue.IsEnabled = false;
+            rbNewsStatusFalse.IsEnabled = false;
+            foreach (var item in lstTags.Items)
+            {
+                if (item is FrameworkElement element)
+                {
+                    // Tìm kiếm các controls kiểu CheckBox trong mỗi mục của ListBox
+                    var checkBox = FindVisualChild<CheckBox>(element);
+                    if (checkBox != null)
+                    {
+                        checkBox.IsEnabled = false;
+                    }
+                }
+            }
         }
 
     }
