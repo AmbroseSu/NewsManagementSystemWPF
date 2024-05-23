@@ -48,6 +48,7 @@ namespace FUNewsWPF
             if (!string.IsNullOrEmpty(txtCategoryId.Text))
             {
                 // Nếu có giá trị, khóa nút btnCreateCategory
+                txtCategoryId.IsEnabled = false;
                 btnCreateCategory.IsEnabled = false;
             }
             else

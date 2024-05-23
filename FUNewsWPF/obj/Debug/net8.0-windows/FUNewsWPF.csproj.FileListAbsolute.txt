@@ -175,3 +175,7 @@ D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\CreateCategoryUI.g.cs
 D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\CreateCategoryUI.baml
 D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\NewsArticleManagerUI.g.cs
 D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\NewsArticleManagerUI.baml
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\AccountManagement.g.cs
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\Register.g.cs
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\AccountManagement.baml
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\Register.baml

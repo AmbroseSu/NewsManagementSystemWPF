@@ -41,31 +41,45 @@
                 <Label Content="Account Email" Grid.Row="2" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
                 <TextBox x:Name="txtAccountEmail" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5"/>
 
-                <Label Content="Account Role" Grid.Row="3" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtAccountRole" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"/>
+                <Label Content="Account Password" Grid.Row="3" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtAccountPassword" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"/>
+                
+                <Label Content="Account Role" Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtAccountRole" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5"/>
 
-                <Label Content="Account Password" Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
-                <PasswordBox x:Name="txtAccountPassword" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5"/>
+            
             </Grid>
         </GroupBox>
 
         <Border Grid.Row="2" BorderBrush="#2E86C1" BorderThickness="2" CornerRadius="5">
             <DataGrid x:Name="dgAccounts" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="LightGray" GridLinesVisibility="Horizontal" SelectionChanged="dgAccounts_SelectionChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Account ID" Binding="{Binding AccountID}" Width="100"/>
+                    <DataGridTextColumn Header="Account ID" Binding="{Binding AccountId}" Width="100"/>
                     <DataGridTextColumn Header="Account Name" Binding="{Binding AccountName}" Width="250"/>
                     <DataGridTextColumn Header="Account Email" Binding="{Binding AccountEmail}" Width="250"/>
+                    <DataGridTemplateColumn Header="Account Password" Width="150">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding AccountPassword}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <PasswordBox Password="{Binding AccountPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Account Role" Binding="{Binding AccountRole}" Width="150"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3" Margin="0,18,151,2">
-            <Button x:Name="btnCreate" Content="Create" Width="100" Margin="5" Background="#4CAF50" Foreground="White" Padding="10,5"/>
-            <Button x:Name="btnUpdate" Content="Update" Width="100" Margin="5" Background="#2196F3" Foreground="White" Padding="10,5"/>
-            <Button x:Name="btnDelete" Content="Delete" Width="100" Margin="5" Background="#F44336" Foreground="White" Padding="10,5"/>
-            <Button x:Name="btnReset" Content="Reset" Width="100" Margin="5" Background="#FFC107" Foreground="White" Padding="10,5"/>
-            <Button x:Name="btnClose" Content="Close" Width="100" Margin="5" Background="#FF9800" Foreground="White" Padding="10,5"/>
+            <Button x:Name="btnCreate" Content="Create" Width="100" Margin="5" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnCreate_Click"/>
+            <Button x:Name="btnUpdate" Content="Update" Width="100" Margin="5" Background="#2196F3" Foreground="White" Padding="10,5" Click="btnUpdate_Click"/>
+            <Button x:Name="btnDelete" Content="Delete" Width="100" Margin="5" Background="#F44336" Foreground="White" Padding="10,5" Click="btnDelete_Click"/>
+            <Button x:Name="btnReset" Content="Reset" Width="100" Margin="5" Background="#FFC107" Foreground="White" Padding="10,5" Click="btnReset_Click"/>
+            <Button x:Name="btnClose" Content="Close" Width="100" Margin="5" Background="#FF9800" Foreground="White" Padding="10,5" Click="btnClose_Click"/>
         </StackPanel>
     </Grid>
 </Window>
