@@ -13,6 +13,7 @@ namespace Service
         void UpdateAccount(SystemAccount account);
         void DeleteAccount(SystemAccount account);
         List<SystemAccount> GetAccounts();
-        SystemAccount GetAccountById(string accountEmail);
+        SystemAccount GetAccountByEmail(string accountEmail);
+        SystemAccount GetAccountById(short id);
     }
 }

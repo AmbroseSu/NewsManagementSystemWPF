@@ -31,7 +31,7 @@ namespace FUNewsWPF
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            SystemAccount systemAccount = iSystemAccountService.GetAccountById(txtUser.Text);
+            SystemAccount systemAccount = iSystemAccountService.GetAccountByEmail(txtUser.Text);
             
             if (systemAccount != null && systemAccount.AccountPassword.Equals(txtPass.Password) && systemAccount.AccountRole == 1)
             {

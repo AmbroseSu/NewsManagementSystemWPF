@@ -11,7 +11,8 @@ namespace Repository
     public interface ISystemAccountRepository
     {
         List<SystemAccount> GetSystemAccounts();
-        SystemAccount GetSystemAccountById(string accountEmail);
+        SystemAccount GetSystemAccountByEmail(string accountEmail);
+        SystemAccount GetSystemAccountById(short id);
         void SaveAccount(SystemAccount account);
         void UpdateAccount(SystemAccount account);
         void DeleteAccount(SystemAccount account);

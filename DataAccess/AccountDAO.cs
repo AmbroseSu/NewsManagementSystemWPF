@@ -1,4 +1,6 @@
 ﻿using BusinessObject;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +11,18 @@ namespace DataAccess
 {
     public class AccountDAO
     {
-        public static SystemAccount GetAccountById(string accountEmail)
+        public static SystemAccount GetAccountByEmail(string accountEmail)
         {
             using var db = new FunewsManagementDbContext();
             var test = db.SystemAccounts.FirstOrDefault(c => c.AccountEmail.Equals(accountEmail));
             return test;
+        }
+
+        public static SystemAccount GetAccountById(short id)
+        {
+            using var db = new FunewsManagementDbContext();
+            var account = db.SystemAccounts.AsNoTracking().FirstOrDefault(c => c.AccountId == id);
+            return account;
         }
 
         public static List<SystemAccount> GetSystemAccounts()
@@ -63,11 +72,24 @@ namespace DataAccess
         {
             try
             {
-                using var context = new FunewsManagementDbContext();
+                /*using var context = new FunewsManagementDbContext();
                 var ac = context.SystemAccounts.SingleOrDefault(acc => acc.AccountId == account.AccountId);
                 context.SystemAccounts.Remove(account);
-                context.SaveChanges();
-            }catch (Exception ex)
+                context.SaveChanges();*/
+                using var context = new FunewsManagementDbContext();
+                //var account = context.SystemAccounts.Find(accountId);
+
+                if (account != null)
+                {
+                    context.SystemAccounts.Remove(account);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Account not found.");
+                }
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

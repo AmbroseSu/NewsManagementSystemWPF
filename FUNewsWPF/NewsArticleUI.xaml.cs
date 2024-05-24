@@ -337,6 +337,7 @@ namespace FUNewsWPF
         private void DisableEditingFeatures()
         {
             gbNewsArticleDetail.Visibility = Visibility.Collapsed;
+            mnMenu.Visibility = Visibility.Collapsed;
             btnCreate.IsEnabled = false;
 
             btnUpdate.IsEnabled = false;          
@@ -357,6 +358,7 @@ namespace FUNewsWPF
         private void EnableEditingFeatures()
         {
             gbNewsArticleDetail.Visibility = Visibility.Visible;
+            mnMenu.Visibility = Visibility.Visible;
             btnCreate.IsEnabled = true;
             btnUpdate.IsEnabled = true;
             btnDelete.IsEnabled = true;

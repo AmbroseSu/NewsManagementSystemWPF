@@ -35,11 +35,15 @@ namespace Service
             return iSystemAccountRepository.GetSystemAccounts();
         }
 
-        public SystemAccount GetAccountById(string accountEmail)
+        public SystemAccount GetAccountByEmail(string accountEmail)
         {
-            return iSystemAccountRepository.GetSystemAccountById(accountEmail);
+            return iSystemAccountRepository.GetSystemAccountByEmail(accountEmail);
         }
 
+        public SystemAccount GetAccountById(short id)
+        {
+            return iSystemAccountRepository.GetSystemAccountById(id);
+        }
 
     }
 }

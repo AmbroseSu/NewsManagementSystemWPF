@@ -14,6 +14,7 @@ namespace Repository
         public void DeleteAccount(SystemAccount account) => AccountDAO.DeleteAccount(account);
         public void UpdateAccount(SystemAccount account) => AccountDAO.UpdateAccount(account);  
         public List<SystemAccount> GetSystemAccounts() => AccountDAO.GetSystemAccounts();
-        public SystemAccount GetSystemAccountById(string accountEmail) => AccountDAO.GetAccountById(accountEmail);
+        public SystemAccount GetSystemAccountByEmail(string accountEmail) => AccountDAO.GetAccountByEmail(accountEmail);
+        public SystemAccount GetSystemAccountById(short id) => AccountDAO.GetAccountById(id);
     }
 }

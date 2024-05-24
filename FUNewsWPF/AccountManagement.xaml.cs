@@ -97,12 +97,13 @@ namespace FUNewsWPF
                     MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this account", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                     if (result == MessageBoxResult.OK)
                     {
-                        SystemAccount account = new SystemAccount();
-                        account.AccountId = short.Parse(txtAccountID.Text);
+                        //SystemAccount account = new SystemAccount();
+                        SystemAccount account = iSystemAccountService.GetAccountById(short.Parse(txtAccountID.Text));
+                        /*account.AccountId = short.Parse(txtAccountID.Text);
                         account.AccountName = txtAccountName.Text;
                         account.AccountEmail = txtAccountEmail.Text;
                         account.AccountPassword = txtAccountPassword.Text;
-                        account.AccountRole = int.Parse(txtAccountRole.Text);
+                        account.AccountRole = int.Parse(txtAccountRole.Text);*/
                         iSystemAccountService.DeleteAccount(account);
                         MessageBox.Show("Account delete successfully");
                     }

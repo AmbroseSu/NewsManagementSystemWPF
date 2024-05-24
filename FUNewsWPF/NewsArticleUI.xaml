@@ -16,9 +16,31 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="News Article Management" FontSize="28" FontWeight="Bold" Foreground="#2E86C1" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+        <Grid Margin="0,6,0,143" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <GroupBox x:Name="gbNewsArticleDetail" Header="News Article Details" Margin="0,43,0,34" FontSize="16" Grid.RowSpan="2">
+            <!-- Menu -->
+            <Menu x:Name="mnMenu" Grid.Row="0" Margin="-2,-14,2,62">
+                <MenuItem Header="File" FontSize="15">
+                    <MenuItem Header="New" />
+                    <MenuItem Header="Save" />
+                    <MenuItem Header="Exit" />
+                </MenuItem>
+                <MenuItem Header="Edit" FontSize="15">
+                    <MenuItem Header="Cut" />
+                    <MenuItem Header="Copy" />
+                    <MenuItem Header="Paste" />
+                </MenuItem>
+            </Menu>
+
+            <!-- TextBlock -->
+            <TextBlock Text="News Article Management" FontSize="28" FontWeight="Bold" Foreground="#2E86C1" Margin="0,10,0,30" HorizontalAlignment="Center"/>
+        </Grid>
+
+        <GroupBox x:Name="gbNewsArticleDetail" Header="News Article Details" Margin="0,49,0,28" FontSize="16" Grid.RowSpan="2">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
