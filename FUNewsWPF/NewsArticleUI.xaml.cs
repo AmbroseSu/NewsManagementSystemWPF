@@ -332,6 +332,10 @@ namespace FUNewsWPF
                 account = login.LoggedInAccount;
                 EnableEditingFeatures(); // Kích hoạt các chức năng chỉnh sửa
             }
+            else
+            {
+                this.Close();
+            }
         }
 
         private void DisableEditingFeatures()

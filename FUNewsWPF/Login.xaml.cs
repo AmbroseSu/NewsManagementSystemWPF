@@ -11,8 +11,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Configuration;
 using Service;
 using BusinessObject;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace FUNewsWPF
 {
@@ -23,32 +26,56 @@ namespace FUNewsWPF
     {
         private readonly ISystemAccountService iSystemAccountService;
         public SystemAccount LoggedInAccount { get; private set; }
+        private string defaultEmail;
+        private string defaultPassword;
         public Login()
         {
             InitializeComponent();
             iSystemAccountService = new SystemAccountService();
+            var builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory()) // Đặt đường dẫn cơ sở
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true); // Thêm file appsettings.json
+
+            IConfiguration configuration = builder.Build();
+
+            defaultEmail = configuration.GetSection("DefaultAccount")["Email"];
+            defaultPassword = configuration.GetSection("DefaultAccount")["Password"];
+
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            SystemAccount systemAccount = iSystemAccountService.GetAccountByEmail(txtUser.Text);
-            
-            if (systemAccount != null && systemAccount.AccountPassword.Equals(txtPass.Password) && systemAccount.AccountRole == 1)
+            if(txtUser.Text.Equals(defaultEmail) && txtPass.Password.Equals(defaultPassword))
             {
-/*                this.Hide();
-                NewsArticleUI newsArticleUI = new NewsArticleUI(systemAccount);
-                newsArticleUI.Show();*/
-                /*CategoryUI categoryUI = new CategoryUI();
-                categoryUI.Show();*/
-                LoggedInAccount = systemAccount;
-                this.DialogResult = true; // Đóng cửa sổ và trả về kết quả thành công
+                AccountManagement accountManagement = new AccountManagement();
+                accountManagement.Show();
+                this.DialogResult = false;
                 this.Close();
-
             }
             else
             {
-                MessageBox.Show("You are not permission !");
+                SystemAccount systemAccount = iSystemAccountService.GetAccountByEmail(txtUser.Text);
+
+                if (systemAccount != null && systemAccount.AccountPassword.Equals(txtPass.Password) && systemAccount.AccountRole == 1)
+                {
+                    /*                this.Hide();
+                                    NewsArticleUI newsArticleUI = new NewsArticleUI(systemAccount);
+                                    newsArticleUI.Show();*/
+                    /*CategoryUI categoryUI = new CategoryUI();
+                    categoryUI.Show();*/
+                    LoggedInAccount = systemAccount;
+                    this.DialogResult = true; // Đóng cửa sổ và trả về kết quả thành công
+                    this.Close();
+
+                }
+                else
+                {
+                    MessageBox.Show("You are not permission !");
+                }
             }
+
+
+            
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
