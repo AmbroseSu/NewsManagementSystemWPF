@@ -25,7 +25,13 @@
     <Compile Update="NewsArticleUI.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ProfileUI.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Register.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="TagUI.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -48,7 +54,13 @@
     <Page Update="NewsArticleUI.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="ProfileUI.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Register.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="TagUI.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

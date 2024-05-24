@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\Assignment1\FUNewsWPF\App.xaml
-71600734999
+9-838325564
 
-121674566359
+141366831834
 248164989653
-AccountManagement.xaml;CategoryUI.xaml;CreateCategoryUI.xaml;Login.xaml;NewsArticleManagerUI.xaml;NewsArticleUI.xaml;Register.xaml;
+AccountManagement.xaml;CategoryUI.xaml;CreateCategoryUI.xaml;Login.xaml;NewsArticleManagerUI.xaml;NewsArticleUI.xaml;ProfileUI.xaml;Register.xaml;TagUI.xaml;
 
 False
 

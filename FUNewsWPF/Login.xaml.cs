@@ -28,6 +28,7 @@ namespace FUNewsWPF
         public SystemAccount LoggedInAccount { get; private set; }
         private string defaultEmail;
         private string defaultPassword;
+        public LoginRole Role { get; private set; }
         public Login()
         {
             InitializeComponent();
@@ -49,6 +50,7 @@ namespace FUNewsWPF
             {
                 AccountManagement accountManagement = new AccountManagement();
                 accountManagement.Show();
+                Role = LoginRole.Admin;
                 this.DialogResult = false;
                 this.Close();
             }
@@ -64,13 +66,25 @@ namespace FUNewsWPF
                     /*CategoryUI categoryUI = new CategoryUI();
                     categoryUI.Show();*/
                     LoggedInAccount = systemAccount;
+                    Role = LoginRole.Staff;
                     this.DialogResult = true; // Đóng cửa sổ và trả về kết quả thành công
                     this.Close();
 
                 }
                 else
                 {
-                    MessageBox.Show("You are not permission !");
+                    if (systemAccount != null && systemAccount.AccountPassword.Equals(txtPass.Password) && systemAccount.AccountRole == 2)
+                    {
+                        LoggedInAccount = systemAccount;
+                        Role = LoginRole.Lecturer;
+                        this.DialogResult = true; // Đóng cửa sổ và trả về kết quả thành công
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("You are not permission !");
+                    }
+                        
                 }
             }
 

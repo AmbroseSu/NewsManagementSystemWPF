@@ -28,6 +28,7 @@ namespace FUNewsWPF
         private readonly ITagService iTagService;
         private SystemAccount account;
         private Dictionary<string, bool> tagSelectionStatus = new Dictionary<string, bool>();
+        
         /*public NewsArticleUI(SystemAccount systemAccount)
         {
             InitializeComponent();
@@ -329,8 +330,21 @@ namespace FUNewsWPF
             Login login = new Login();
             if (login.ShowDialog() == true)
             {
-                account = login.LoggedInAccount;
-                EnableEditingFeatures(); // Kích hoạt các chức năng chỉnh sửa
+                if(login.Role == LoginRole.Staff)
+                {
+                    account = login.LoggedInAccount;
+                    EnableEditingFeatures();
+                }
+                else
+                {
+                    if(login.Role == LoginRole.Lecturer)
+                    {
+                        account = login.LoggedInAccount;
+                        mnMenu.IsEnabled =false;
+                        EnableEditingFeatures();
+                    }
+                }
+                 // Kích hoạt các chức năng chỉnh sửa
             }
             else
             {
@@ -385,6 +399,43 @@ namespace FUNewsWPF
                     }
                 }
             }
+        }
+
+        private void miCategory_Click(object sender, RoutedEventArgs e)
+        {
+            CategoryUI categoryUI = new CategoryUI();
+            categoryUI.Show();
+            miCategory.IsEnabled = false;
+            categoryUI.Closed += (s, args) => {
+                miCategory.IsEnabled = true;
+                LoadCategoryList();
+                LoadTagList();
+                LoadNewsArticlesList();
+            };
+        }
+        private void miTag_Click(object sender, RoutedEventArgs e)
+        {
+            TagUI tagUI = new TagUI();
+            tagUI.Show();
+            miTag.IsEnabled = false;
+            tagUI.Closed += (s, args) => {
+                miTag.IsEnabled = true;
+                LoadCategoryList();
+                LoadTagList();
+                LoadNewsArticlesList();
+            };
+        }
+        private void miProfile_Click(object sender, RoutedEventArgs e)
+        {
+            ProfileUI profileUI = new ProfileUI(account);
+            profileUI.Show();
+            miProfile.IsEnabled = false;
+            profileUI.Closed += (s, args) => {
+                miTag.IsEnabled = true;
+                LoadCategoryList();
+                LoadTagList();
+                LoadNewsArticlesList();
+            };
         }
 
     }

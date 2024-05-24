@@ -179,3 +179,7 @@ D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\AccountManagement.g.cs
 D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\Register.g.cs
 D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\AccountManagement.baml
 D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\Register.baml
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\TagUI.g.cs
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\TagUI.baml
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\ProfileUI.g.cs
+D:\Assignment1\FUNewsWPF\obj\Debug\net8.0-windows\ProfileUI.baml
