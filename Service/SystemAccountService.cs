@@ -45,5 +45,20 @@ namespace Service
             return iSystemAccountRepository.GetSystemAccountById(id);
         }
 
+        public List<SystemAccount> GetSystemAccountsByName(string name)
+        {
+            return iSystemAccountRepository.GetSystemAccountsByName(name);
+        }
+
+        public List<SystemAccount> GetSystemAccountsByEmail(string email)
+        {
+            return iSystemAccountRepository.GetSystemAccountsByEmail(email);
+        }
+
+        public List<SystemAccount> GetSystemAccountsByRole(int roleId)
+        {
+            return iSystemAccountRepository.GetSystemAccountsByRole(roleId);
+        }
+
     }
 }

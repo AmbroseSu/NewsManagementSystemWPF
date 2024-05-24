@@ -1,4 +1,5 @@
-﻿using BusinessObject;
+﻿using Azure;
+using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -84,17 +85,88 @@ namespace DataAccess
             }
         }
 
-        public static NewsArticle GetNewsArticleById(int id)
+        public static NewsArticle GetNewsArticleById(string id)
         {
             using var context = new FunewsManagementDbContext();
             return context.NewsArticles.FirstOrDefault(na => na.NewsArticleId.Equals(id));
         }
+        public static List<NewsArticle> GetNewsArticlesById(string id)
+        {
+            using var context = new FunewsManagementDbContext();
+            return context.NewsArticles.Where(n => EF.Functions.Like(n.NewsArticleId, $"%{id}%"))
+                    .ToList();
+        }
+
 
         public static NewsArticle GetArticleWithTag(string newsArticleId)
         {
             using var context = new FunewsManagementDbContext();
             return context.NewsArticles.Include(ta => ta.Tags)
                 .FirstOrDefault(ta => ta.NewsArticleId == newsArticleId);
+        }
+
+        public static List<NewsArticle> GetNewsArticlesByTitle(string title)
+        {
+            try
+            {
+                using var context = new FunewsManagementDbContext();
+                return context.NewsArticles
+                    .Where(n => EF.Functions.Like(n.NewsTitle, $"%{title}%"))
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+        }
+
+        public static List<NewsArticle> GetNewsArticlesByCategory(short categoryId)
+        {
+            try
+            {
+                using var context = new FunewsManagementDbContext();
+                return context.NewsArticles
+                    .Where(n => n.CategoryId == categoryId)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public static List<NewsArticle> GetNewsArticlesByStatus(bool status)
+        {
+            try
+            {
+                using var context = new FunewsManagementDbContext();
+                return context.NewsArticles
+                    .Where(n => n.NewsStatus.Equals(status))
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public static List<NewsArticle> GetNewsArticlesByTag(string tag)
+        {
+            try
+            {
+                using var context = new FunewsManagementDbContext();
+                // Lấy danh sách bài báo có chứa tag có id tương ứng
+                return context.NewsArticles
+                                  .Include(na => na.Tags)
+                                  .Where(na => na.Tags.Any(t => t.TagName.Equals(tag)))
+                                  .ToList();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
 

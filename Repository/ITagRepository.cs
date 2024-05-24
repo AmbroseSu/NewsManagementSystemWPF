@@ -14,5 +14,7 @@ namespace Repository
         void SaveTag(Tag tag);
         void DeleteTag(Tag tag);
         void UpdateTag(Tag tag);
+        List<Tag> GetTagsByName(string name);
+        List<Tag> GetTagsByNote(string note);
     }
 }

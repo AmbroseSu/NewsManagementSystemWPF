@@ -14,5 +14,7 @@ namespace Service
         void DeleteCategory(Category category);
         List<Category> GetCategories();
         Category GetCategoryById(short id);
+        List<Category> GetCategoryByName(string name);
+        List<Category> GetCategoryByDescription(string description);
     }
 }

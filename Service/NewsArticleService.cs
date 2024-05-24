@@ -37,7 +37,7 @@ namespace Service
             return iNewsArticleRepository.GetNewsArticles();
         }
 
-        public NewsArticle GetNewsArticleById(int id)
+        public NewsArticle GetNewsArticleById(string id)
         {
             return iNewsArticleRepository.GetNewsArticleById(id);
         }
@@ -45,6 +45,28 @@ namespace Service
         {
             return iNewsArticleRepository.GetArticleWithTag(newsArticleId);
         }
+        public List<NewsArticle> GetNewsArticlesById(string id)
+        {
+            return iNewsArticleRepository.GetNewsArticlesById(id);
+        }
+
+        public List<NewsArticle> GetNewsArticlesbyTitle(string title)
+        {
+            return iNewsArticleRepository.GetNewsArticlesbyTitle(title);
+        }
+        public List<NewsArticle> GetNewsArticlesByCategory(short categoryId)
+        {
+            return iNewsArticleRepository.GetNewsArticlesByCategory(categoryId);
+        }
+        public List<NewsArticle> GetNewsArticlesByStatus(bool status)
+        {
+            return iNewsArticleRepository.GetNewsArticlesByStatus(status);
+        }
+        public List<NewsArticle> GetNewsArticlesByTag(string tag)
+        {
+            return iNewsArticleRepository.GetNewsArticlesByTag(tag);
+        }
+
 
 
     }

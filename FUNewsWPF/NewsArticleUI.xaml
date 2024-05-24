@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
-        Title="News Article Management" Height="670" Width="900">
+        Title="News Article Management" Height="750" Width="900">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -29,7 +29,7 @@
                     <MenuItem x:Name="miTag" Header="Tag" Click="miTag_Click"/>
                     <MenuItem x:Name="miProfile" Header="Profile" Click="miProfile_Click"/>
                 </MenuItem>
-                
+
             </Menu>
 
             <!-- TextBlock -->
@@ -49,6 +49,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Label Content="News Article ID" Grid.Row="0" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
@@ -86,12 +87,22 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <Label x:Name="lbSearch" Content="Search" Grid.Row="6" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
+                <TextBox x:Name="txtSearch" Grid.Row="6" Grid.Column="1" Margin="5,5,301,5"/>
+                <ComboBox x:Name="cboSearch" Grid.Row="6" Grid.Column="1" Width="150" Margin="420,5,128,5">
+                    <ComboBoxItem Content="News Article ID"/>
+                    <ComboBoxItem Content="News Title"/>
+                    <ComboBoxItem Content="Category"/>
+                    <ComboBoxItem Content="News Status"/>
+                    <ComboBoxItem Content="Tags"/>
+                </ComboBox>
+                <Button x:Name="btnSearch" Content="Search" Grid.Row="6" Grid.Column="1" Width="100" Margin="588,5,10,5" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnSearch_Click"/>
             </Grid>
         </GroupBox>
 
 
-        <Border Grid.Row="1" BorderBrush="#2E86C1" BorderThickness="2" CornerRadius="5" Margin="0,144,0,0" Grid.RowSpan="2">
-            <DataGrid x:Name="dgNewsArticles" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="LightGray" GridLinesVisibility="Horizontal"
+        <Border Grid.Row="1" BorderBrush="#2E86C1" BorderThickness="2" CornerRadius="5" Margin="0,208,0,0" Grid.RowSpan="2">
+            <DataGrid x:Name="dgNewsArticles" Margin="10,-2,8,10" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="LightGray" GridLinesVisibility="Horizontal"
               ScrollViewer.CanContentScroll="False"
               ScrollViewer.VerticalScrollBarVisibility="Auto"
               ScrollViewer.HorizontalScrollBarVisibility="Auto" SelectionChanged="dgNewsArticles_SelectionChanged">

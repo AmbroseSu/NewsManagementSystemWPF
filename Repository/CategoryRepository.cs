@@ -15,5 +15,7 @@ namespace Repository
         public void DeleteCategory(Category category) => CategoryDAO.DeleteCategory(category);
         public List<Category> GetCategories() => CategoryDAO.GetCategories();
         public Category GetCategoryById(short id) => CategoryDAO.GetCategoryById(id);
+        public List<Category> GetCategoryByName(string name) => CategoryDAO.GetCategoryByName(name);
+        public List<Category> GetCategoryByDescription(string description) => CategoryDAO.GetCategoryByDescription(description);
     }
 }

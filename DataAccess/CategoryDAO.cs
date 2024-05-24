@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessObject;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
 {
@@ -69,6 +70,37 @@ namespace DataAccess
         {
             using var context = new FunewsManagementDbContext();
             return context.Categories.FirstOrDefault(cate => cate.CategoryId.Equals(id));
+        }
+
+        public static List<Category> GetCategoryByName(string name)
+        {
+            try
+            {
+                using var context = new FunewsManagementDbContext();
+                return context.Categories
+                              .Where(c => EF.Functions.Like(c.CategoryName, $"%{name}%"))
+                              .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        
+        public static List<Category> GetCategoryByDescription(string description)
+        {
+
+            try
+            {
+                using var context = new FunewsManagementDbContext();
+                return context.Categories
+                              .Where(c => EF.Functions.Like(c.CategoryDesciption, $"%{description}%"))
+                              .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
 

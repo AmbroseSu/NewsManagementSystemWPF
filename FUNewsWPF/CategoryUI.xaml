@@ -21,24 +21,36 @@
         <GroupBox Header="Category Details" Grid.Row="1" Margin="0,0,0,20" FontSize="16">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="178"/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="24.017"/>
                     <RowDefinition Height="17.263"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Content="Category ID" Grid.Row="0" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Grid.RowSpan="2"/>
+                <Label Content="Category ID" Grid.Row="0" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Grid.RowSpan="2" Height="31"/>
                 <TextBox x:Name="txtCategoryId" Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" IsEnabled="False" Grid.RowSpan="2"/>
 
-                <Label Content="Category Name" Grid.Row="2" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                <Label Content="Category Name" Grid.Row="2" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Height="32"/>
                 <TextBox x:Name="txtCategoryName" Grid.Row="2" Grid.Column="1" IsEnabled="False" Margin="5,5,5,5"/>
 
-                <Label Content="Category Description" Grid.Row="3" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                <Label Content="Category Description" Grid.Row="3" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Height="31"/>
                 <TextBox x:Name="txtCategoryDescription" Grid.Row="3" Grid.Column="1" IsEnabled="False" Margin="5,5,5,5" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+
+                <Label x:Name="lbSearch" Content="Search" Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center" Height="31"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5">
+                    <TextBox x:Name="txtSearch" Width="350" Margin="0,0,25,0"/>
+                    <ComboBox x:Name="cboSearch" Width="150" Margin="0,0,30,0">
+                        <ComboBoxItem Content="Category ID"/>
+                        <ComboBoxItem Content="Category Name"/>
+                        <ComboBoxItem Content="Category Description"/>
+                    </ComboBox>
+                    <Button x:Name="btnSearch" Content="Search" Width="100" Margin="5,0,0,0" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnSearch_Click" />
+                </StackPanel>
             </Grid>
         </GroupBox>
 

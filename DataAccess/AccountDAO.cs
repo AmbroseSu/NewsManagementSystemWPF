@@ -95,6 +95,49 @@ namespace DataAccess
             }
         }
 
+        public static List<SystemAccount> GetSystemAccountByName(string name)
+        {
+            try
+            {
+                using var context = new FunewsManagementDbContext();
+                return context.SystemAccounts
+                              .Where(c => EF.Functions.Like(c.AccountName, $"%{name}%"))
+                              .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public static List<SystemAccount> GetSystemAccountByEmail(string email)
+        {
+            try
+            {
+                using var context = new FunewsManagementDbContext();
+                return context.SystemAccounts
+                              .Where(c => EF.Functions.Like(c.AccountEmail, $"%{email}%"))
+                              .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public static List<SystemAccount> GetSystemAccountByRole(int roleId)
+        {
+            try
+            {
+                using var context = new FunewsManagementDbContext();
+                return context.SystemAccounts.Where(c => c.AccountRole == roleId).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
     }
 }

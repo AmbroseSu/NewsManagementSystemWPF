@@ -27,6 +27,7 @@ namespace FUNewsWPF
         {
             InitializeComponent();
             iCategoryService = new CategoryService();
+            Loaded += Window_Loaded;
         }
 
         public CreateCategoryUI(Category selectedCategory)

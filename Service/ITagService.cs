@@ -14,5 +14,7 @@ namespace Service
         void DeleteTag(Tag tag);
         List<Tag> GetTags();
         Tag GetTagById(int id);
+        List<Tag> GetTagsByName(string name);
+        List<Tag> GetTagsByNote(string note);
     }
 }

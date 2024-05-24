@@ -15,5 +15,8 @@ namespace Service
         List<SystemAccount> GetAccounts();
         SystemAccount GetAccountByEmail(string accountEmail);
         SystemAccount GetAccountById(short id);
+        List<SystemAccount> GetSystemAccountsByName(string name);
+        List<SystemAccount> GetSystemAccountsByEmail(string email);
+        List<SystemAccount> GetSystemAccountsByRole(int roleId);
     }
 }

@@ -7,11 +7,14 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
-        Title="Account Management" Height="600" Width="900">
+        Title="Account Management" Height="700" Width="900">
+    <!-- Increased height -->
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <!-- New row for search controls -->
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -19,12 +22,13 @@
         <TextBlock Text="Account Management" FontSize="28" FontWeight="Bold" Foreground="#2E86C1" HorizontalAlignment="Center" Margin="0,0,0,20"/>
 
         <GroupBox Header="Account Details" Grid.Row="1" Margin="0,0,0,20" FontSize="16">
-            <Grid Margin="10">
+            <Grid Margin="10,0,10,0" Height="212">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -43,15 +47,30 @@
 
                 <Label Content="Account Password" Grid.Row="3" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
                 <TextBox x:Name="txtAccountPassword" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"/>
-                
+
                 <Label Content="Account Role" Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
                 <TextBox x:Name="txtAccountRole" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5"/>
 
-            
+                <Label x:Name="lbSearch" Content="Search" Grid.Row="5" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Margin="5,5,5,5">
+                    <TextBox x:Name="txtSearch" Width="350" Margin="0,0,25,0"/>
+                    <ComboBox x:Name="cboSearch" Width="183" Margin="0,0,25,0">
+                        <ComboBoxItem Content="Account ID"/>
+                        <ComboBoxItem Content="Account Name"/>
+                        <ComboBoxItem Content="Account Email"/>
+                        <ComboBoxItem Content="Account Role"/>
+                    </ComboBox>
+                    <Button x:Name="btnSearch" Content="Search" Width="100" Margin="5,0,0,0" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnSearch_Click" />
+                </StackPanel>
+
             </Grid>
         </GroupBox>
 
-        <Border Grid.Row="2" BorderBrush="#2E86C1" BorderThickness="2" CornerRadius="5">
+        <!-- New Search Controls Row -->
+        
+        
+
+        <Border Grid.Row="3" BorderBrush="#2E86C1" BorderThickness="2" CornerRadius="5">
             <DataGrid x:Name="dgAccounts" Margin="10" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="LightGray" GridLinesVisibility="Horizontal" SelectionChanged="dgAccounts_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Account ID" Binding="{Binding AccountId}" Width="100"/>
@@ -63,18 +82,14 @@
                                 <TextBlock Text="{Binding AccountPassword}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <PasswordBox Password="{Binding AccountPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
+
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Account Role" Binding="{Binding AccountRole}" Width="150"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3" Margin="0,18,151,2">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="4" Margin="0,18,151,2">
             <Button x:Name="btnCreate" Content="Create" Width="100" Margin="5" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnCreate_Click"/>
             <Button x:Name="btnUpdate" Content="Update" Width="100" Margin="5" Background="#2196F3" Foreground="White" Padding="10,5" Click="btnUpdate_Click"/>
             <Button x:Name="btnDelete" Content="Delete" Width="100" Margin="5" Background="#F44336" Foreground="White" Padding="10,5" Click="btnDelete_Click"/>

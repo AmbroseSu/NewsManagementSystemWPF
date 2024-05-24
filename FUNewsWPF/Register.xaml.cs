@@ -41,7 +41,7 @@ namespace FUNewsWPF
             txtAccountID.Text = accountToUpdate.AccountId.ToString();
             txtAccountName.Text = accountToUpdate.AccountName;
             txtAccountEmail.Text = accountToUpdate.AccountEmail;
-            txtAccountPassword.Password = accountToUpdate.AccountPassword;
+            txtAccountPassword.Text = accountToUpdate.AccountPassword;
             txtAccountRole.Text = accountToUpdate.AccountRole.ToString();
         }
 
@@ -69,7 +69,7 @@ namespace FUNewsWPF
                 txtAccountID.IsEnabled = false;
                 txtAccountName.Text = "";
                 txtAccountEmail.Text = "";
-                txtAccountPassword.Password = "";
+                txtAccountPassword.Text = "";
                 txtAccountRole.Text = "";
             }
             else
@@ -77,7 +77,7 @@ namespace FUNewsWPF
                 txtAccountID.Text = "";
                 txtAccountName.Text = "";
                 txtAccountEmail.Text = "";
-                txtAccountPassword.Password = "";
+                txtAccountPassword.Text = "";
                 txtAccountRole.Text = "";
             }
         }
@@ -99,7 +99,7 @@ namespace FUNewsWPF
 
                 if(string.IsNullOrEmpty(txtAccountName.Text) ||
                     string.IsNullOrEmpty(txtAccountEmail.Text) ||
-                    string.IsNullOrEmpty(txtAccountPassword.Password) ||
+                    string.IsNullOrEmpty(txtAccountPassword.Text) ||
                     string.IsNullOrEmpty(txtAccountRole.Text))
                 {
                     MessageBox.Show("All fields must be filled.");
@@ -111,7 +111,7 @@ namespace FUNewsWPF
                 account.AccountId = short.Parse(txtAccountID.Text);
                 account.AccountName = txtAccountName.Text;
                 account.AccountEmail = txtAccountEmail.Text;
-                account.AccountPassword = txtAccountPassword.Password;
+                account.AccountPassword = txtAccountPassword.Text;
                 account.AccountRole = int.Parse(txtAccountRole.Text);
                 iSystemAccountService.SaveAccount(account);
                 MessageBox.Show("Create Account Successfully");
@@ -137,7 +137,7 @@ namespace FUNewsWPF
                     account.AccountId = short.Parse(txtAccountID.Text);
                     account.AccountName = txtAccountName.Text;
                     account.AccountEmail = txtAccountEmail.Text;
-                    account.AccountPassword = txtAccountPassword.Password;
+                    account.AccountPassword = txtAccountPassword.Text;
                     account.AccountRole = int.Parse(txtAccountRole.Text);
                     iSystemAccountService.UpdateAccount(account);
                     MessageBox.Show("Account Update Successfully.");

@@ -1,4 +1,6 @@
 ﻿using BusinessObject;
+using DataAccess;
+using Microsoft.Identity.Client.NativeInterop;
 using Service;
 using System;
 using System.Collections.Generic;
@@ -48,6 +50,11 @@ namespace FUNewsWPF
         private void Window_Loaded(Object sender, RoutedEventArgs e)
         {
             LoadSystemAccountList();
+            txtAccountID.IsEnabled = false;
+            txtAccountName.IsEnabled = false;
+            txtAccountEmail.IsEnabled = false;
+            txtAccountPassword.IsEnabled = false;
+            txtAccountRole.IsEnabled = false;
 
         }
 
@@ -159,6 +166,67 @@ namespace FUNewsWPF
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string searchText = txtSearch.Text.ToLower();
+                string searchCriterion = (cboSearch.SelectedItem as ComboBoxItem)?.Content.ToString();
+
+                if (string.IsNullOrWhiteSpace(searchText) || string.IsNullOrWhiteSpace(searchCriterion))
+                {
+                    var accountList = iSystemAccountService.GetAccounts();
+                    dgAccounts.ItemsSource = accountList;
+                    return;
+                }
+
+                
+                    List<SystemAccount> searchResults = new List<SystemAccount>();
+
+                    switch (searchCriterion)
+                    {
+                        case "Account ID":
+                            if (short.TryParse(searchText, out short accountId))
+                            {
+                                SystemAccount account = iSystemAccountService.GetAccountById(accountId);
+                                if(account != null)
+                                {
+                                searchResults.Add(account);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Please enter a valid Account ID.", "Search", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                return;
+                            }
+                            break;
+
+                        case "Account Name":
+                            searchResults = iSystemAccountService.GetSystemAccountsByName(searchText);
+                            break;
+
+                        case "Account Email":
+                            searchResults = iSystemAccountService.GetSystemAccountsByEmail(searchText);
+                            break;
+
+                        case "Account Role":
+                            searchResults = iSystemAccountService.GetSystemAccountsByRole(int.Parse(searchText));
+                            break;
+
+                        default:
+                            MessageBox.Show("Please select a valid search criterion.", "Search", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                    }
+
+                    dgAccounts.ItemsSource = searchResults;
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while searching: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace Repository
         void DeleteCategory(Category category);
         List<Category> GetCategories();
         Category GetCategoryById(short id);
+        List<Category> GetCategoryByName(string name);
+        List<Category> GetCategoryByDescription(string description);
     }
 }

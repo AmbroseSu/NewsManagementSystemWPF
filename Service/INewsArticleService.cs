@@ -13,7 +13,12 @@ namespace Service
         void UpdateNewsArticle(NewsArticle newsArticle);
         void DeleteNewsArticle(NewsArticle newsArticle);
         List<NewsArticle> GetNewsArticles();
-        NewsArticle GetNewsArticleById(int id);
+        NewsArticle GetNewsArticleById(string id);
         NewsArticle GetArticleWithTag(string newsArticleId);
+        List<NewsArticle> GetNewsArticlesById(string id);
+        List<NewsArticle> GetNewsArticlesbyTitle(string title);
+        List<NewsArticle> GetNewsArticlesByCategory(short categoryId);
+        List<NewsArticle> GetNewsArticlesByStatus(bool status);
+        List<NewsArticle> GetNewsArticlesByTag(string tag);
     }
 }

@@ -15,5 +15,7 @@ namespace Repository
         public void DeleteTag(Tag tag) => TagDAO.DeleteTag(tag);
         public List<Tag> GetTags() => TagDAO.GetTags();
         public Tag GetTagById(int id) => TagDAO.GetTagById(id);
+        public List<Tag> GetTagsByName(string name) => TagDAO.GetTagByName(name);
+        public List<Tag> GetTagsByNote(string note) => TagDAO.GetTagByNote(note);
     }
 }

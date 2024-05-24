@@ -41,5 +41,15 @@ namespace Service
             return iTagRepository.GetTagById(id);
         }
 
+        public List<Tag> GetTagsByName(string name)
+        {
+            return iTagRepository.GetTagsByName(name);
+        }
+
+        public List<Tag> GetTagsByNote(string note)
+        {
+            return iTagRepository.GetTagsByNote(note);
+        }
+
     }
 }

@@ -16,5 +16,8 @@ namespace Repository
         public List<SystemAccount> GetSystemAccounts() => AccountDAO.GetSystemAccounts();
         public SystemAccount GetSystemAccountByEmail(string accountEmail) => AccountDAO.GetAccountByEmail(accountEmail);
         public SystemAccount GetSystemAccountById(short id) => AccountDAO.GetAccountById(id);
+        public List<SystemAccount> GetSystemAccountsByName(string name) => AccountDAO.GetSystemAccountByName(name);
+        public List<SystemAccount> GetSystemAccountsByEmail(string email) => AccountDAO.GetSystemAccountByEmail(email);
+        public List<SystemAccount> GetSystemAccountsByRole(int roleId) => AccountDAO.GetSystemAccountByRole(roleId);
     }
 }

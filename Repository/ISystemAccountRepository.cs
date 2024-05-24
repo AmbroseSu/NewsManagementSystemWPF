@@ -16,5 +16,8 @@ namespace Repository
         void SaveAccount(SystemAccount account);
         void UpdateAccount(SystemAccount account);
         void DeleteAccount(SystemAccount account);
+        List<SystemAccount> GetSystemAccountsByName(string name);
+        List<SystemAccount> GetSystemAccountsByEmail(string email);
+        List<SystemAccount> GetSystemAccountsByRole(int roldId);
     }
 }

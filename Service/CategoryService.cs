@@ -37,5 +37,15 @@ namespace Service
         {
             return iCategoryRepository.GetCategoryById(id);
         }
+
+        public List<Category> GetCategoryByName(string name)
+        {
+            return iCategoryRepository.GetCategoryByName(name);
+        }
+
+        public List<Category> GetCategoryByDescription(string description)
+        {
+            return iCategoryRepository.GetCategoryByDescription(description);
+        }
     }
 }

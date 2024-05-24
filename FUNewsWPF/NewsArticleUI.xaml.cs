@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Service;
 using System;
 using System.Collections.Generic;
+using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -431,12 +432,78 @@ namespace FUNewsWPF
             profileUI.Show();
             miProfile.IsEnabled = false;
             profileUI.Closed += (s, args) => {
-                miTag.IsEnabled = true;
+                miProfile.IsEnabled = true;
                 LoadCategoryList();
                 LoadTagList();
                 LoadNewsArticlesList();
             };
         }
 
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string searchText = txtSearch.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
+                string searchCriterion = (cboSearch.SelectedItem as ComboBoxItem)?.Content.ToString();
+                List<NewsArticle> searchResults = new List<NewsArticle>();
+                if (string.IsNullOrWhiteSpace(searchText) || string.IsNullOrWhiteSpace(searchCriterion))
+                {
+                    var neArList = iNewsArticleService.GetNewsArticles();
+                    dgNewsArticles.ItemsSource = neArList;
+                    //MessageBox.Show("Please enter search text and select a search criterion.", "Search", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                switch (searchCriterion)
+                {
+                    case "News Article ID":
+                        searchResults = iNewsArticleService.GetNewsArticlesById(searchText);
+                        break;
+                    case "News Title":
+                        searchResults = iNewsArticleService.GetNewsArticlesbyTitle(searchText);
+                        break;
+                    case "Category":
+                        if (short.TryParse(searchText, out short categoryId))
+                        {
+                            searchResults = iNewsArticleService.GetNewsArticlesByCategory(categoryId);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please enter a valid CategoryId.", "Search", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+
+                        break;
+                    case "News Status":
+                        if (bool.TryParse(searchText, out bool newsStatus))
+                        {
+                            searchResults = iNewsArticleService.GetNewsArticlesByStatus(newsStatus);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please enter a valid News Status.", "Search", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+                        break;
+                    case "Tags":
+                        searchResults = iNewsArticleService.GetNewsArticlesByTag(searchText);
+                        break;
+                    default:
+                        MessageBox.Show("Please select a valid search criterion.", "Search", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                }
+
+                dgNewsArticles.ItemsSource = searchResults;
+                LoadCategoryList();
+                LoadTagList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while searching: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+
+        }
     }
 }

@@ -42,7 +42,7 @@
                 <TextBox x:Name="txtAccountRole" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5"/>
 
                 <Label Content="Account Password" Grid.Row="4" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
-                <PasswordBox x:Name="txtAccountPassword" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5"/>
+                <TextBox x:Name="txtAccountPassword" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5"/>
             </Grid>
         </GroupBox>
 

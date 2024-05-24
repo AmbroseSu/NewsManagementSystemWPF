@@ -186,6 +186,58 @@ namespace FUNewsWPF
         {
             resetInput();
         }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string searchTerm = txtSearch.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
+            string searchType = (cboSearch.SelectedItem as ComboBoxItem)?.Content.ToString(); // Lấy loại tìm kiếm từ ComboBox
+
+            // Kiểm tra xem người dùng đã nhập từ khóa và chọn loại tìm kiếm chưa
+            if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrEmpty(searchType))
+            {
+                try
+                {
+                    List<Category> searchResults = new List<Category>();
+
+
+                    // Tùy thuộc vào loại tìm kiếm được chọn, thực hiện tìm kiếm trong danh sách categories
+                    switch (searchType)
+                    {
+                        case "Category ID":
+                            if (short.TryParse(searchTerm, out short categoryId))
+                            {
+                                Category category = iCategoryService.GetCategoryById(categoryId);
+                                if (category != null)
+                                    searchResults.Add(category);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Please enter a valid Tag ID.", "Search", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                return;
+                            }
+                            break;
+                        case "Category Name":
+                            searchResults = iCategoryService.GetCategoryByName(searchTerm);
+                            break;
+                        case "Category Description":
+                            searchResults = iCategoryService.GetCategoryByDescription(searchTerm);
+                            break;
+                    }
+
+                    // Hiển thị kết quả tìm kiếm trên DataGrid
+                    dgCategories.ItemsSource = searchResults;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error occurred while searching: " + ex.Message);
+                }
+            }
+            else
+            {
+                var cateList = iCategoryService.GetCategories();
+                dgCategories.ItemsSource = cateList;
+            }
+        }
     }
     
 }
