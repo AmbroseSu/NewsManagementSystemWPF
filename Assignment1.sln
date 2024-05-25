@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{7ECE69FF-550A-401E-A34F-6C85E558915B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FUNewsWPF", "FUNewsWPF\FUNewsWPF.csproj", "{BBBFB6C7-C65F-4164-A46C-DD09E28C6695}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FUNewsWPF", "FUNewsWPF\FUNewsWPF.csproj", "{BBBFB6C7-C65F-4164-A46C-DD09E28C6695}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
