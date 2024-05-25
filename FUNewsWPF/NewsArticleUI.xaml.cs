@@ -98,6 +98,7 @@ namespace FUNewsWPF
             if (account == null)
             {
                 DisableEditingFeatures();
+
             }
             if (cboSearch.Items.Count > 0)
             {

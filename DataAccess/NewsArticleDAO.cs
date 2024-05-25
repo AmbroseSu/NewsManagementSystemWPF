@@ -17,7 +17,11 @@ namespace DataAccess
             try
             {
                 using var context = new FunewsManagementDbContext();
-                listNewsArticles = context.NewsArticles.Include(nt => nt.Tags).Include(ca => ca.Category).ToList();
+                listNewsArticles = context.NewsArticles
+                                          .Include(nt => nt.Tags)
+                                          .Include(ca => ca.Category)
+                                          .Where(nt => nt.NewsStatus == true)
+                                          .ToList();
             }
             catch (Exception ex)
             {
