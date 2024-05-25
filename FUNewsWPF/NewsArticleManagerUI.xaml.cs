@@ -54,14 +54,13 @@ namespace FUNewsWPF
             Loaded += Window_Loaded;
             newsArticleToUpdate = selectedNewsArticle;
            
-            // Tiếp tục gán giá trị cho các thành phần UI sau khi dữ liệu đã được nạp
             
         }
 
         private void Window_Loaded(Object sender, RoutedEventArgs e)
         {
-            LoadTagList(); // Nạp dữ liệu cho lstTags
-            LoadCategoryList(); // Nạp dữ liệu cho cboCategory
+            LoadTagList(); 
+            LoadCategoryList(); 
 
             Dispatcher.InvokeAsync(() =>
             {
@@ -132,12 +131,12 @@ namespace FUNewsWPF
 
         public void LoadTagList()
         {
-            var tags = iTagService.GetTags(); // Giả sử iTagService.GetTags() trả về List<Tag>
+            var tags = iTagService.GetTags(); 
             foreach (var tag in tags)
             {
                 if (!tagSelectionStatus.ContainsKey(tag.TagName))
                 {
-                    tagSelectionStatus[tag.TagName] = false; // Khởi tạo trạng thái không chọn
+                    tagSelectionStatus[tag.TagName] = false; 
                 }
             }
             lstTags.ItemsSource = tags;
@@ -149,7 +148,7 @@ namespace FUNewsWPF
                 var neArList = iNewsArticleService.GetNewsArticles();
                 NewsArticle newsArticle = new NewsArticle();
 
-                // Check if ID already exists
+                
                 foreach (var article in neArList)
                 {
                     if (txtNewsArticleId.Text.Equals(article.NewsArticleId.ToString()))
@@ -177,7 +176,7 @@ namespace FUNewsWPF
                 newsArticle.CreatedById = account.AccountId;
                 newsArticle.ModifiedDate = DateTime.Now;
 
-                // Save NewsArticle first to get the generated ID
+                
                 iNewsArticleService.SaveNewsArticle(newsArticle);
 
                 using (var context = new FunewsManagementDbContext())
@@ -210,8 +209,9 @@ namespace FUNewsWPF
                         context.Set<Dictionary<string, object>>("NewsTag").Add(nt);
                     }
                     context.SaveChanges();
-                    MessageBox.Show("News article updated successfully.");                    
-                    //ResetInput();
+                    MessageBox.Show("News article updated successfully."); 
+                    this.Close();
+                    
                 }
             }
             catch (Exception ex)
@@ -244,14 +244,12 @@ namespace FUNewsWPF
 
                         if (existingArticle != null)
                         {
-                            // Update properties of the existing article
                             existingArticle.NewsTitle = txtNewsTitle.Text;
                             existingArticle.NewsContent = txtNewsContent.Text;
                             existingArticle.CategoryId = short.Parse(cboCategory.SelectedValue.ToString());
                             existingArticle.NewsStatus = rbNewsStatusTrue.IsChecked == true;
                             existingArticle.ModifiedDate = DateTime.Now;
 
-                            // Update associated tags
                             var selectedTags = new List<Tag>();
                             foreach (var item in lstTags.Items)
                             {
@@ -279,6 +277,7 @@ namespace FUNewsWPF
 
                             context.SaveChanges();
                             MessageBox.Show("News article updated successfully.");
+                            this.Close();
                             //ResetInput();
                         }
                         else
@@ -298,7 +297,7 @@ namespace FUNewsWPF
             }
             finally
             {
-                this.Close();
+                //this.Close();
             }
         }
 
@@ -337,15 +336,15 @@ namespace FUNewsWPF
         {
             if (!string.IsNullOrEmpty(txtNewsArticleId.Text))
             {
-                // Nếu có giá trị, khóa nút btnCreateCategory              
+                       
                 btnCreate.IsEnabled = false;
                 txtNewsArticleId.IsEnabled = false;
                 txtNewsTitle.Text = "";
                 txtNewsContent.Text = "";
                 cboCategory.SelectedIndex = -1;
-                rbNewsStatusTrue.IsChecked = false; // Assuming rbNewsStatusTrue is the RadioButton for true status
+                rbNewsStatusTrue.IsChecked = false; 
 
-                // Clear tag selection
+                
                 foreach (var item in lstTags.Items)
                 {
                     var listBoxItem = lstTags.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;
@@ -363,9 +362,8 @@ namespace FUNewsWPF
                 txtNewsTitle.Text = "";
                 txtNewsContent.Text = "";
                 cboCategory.SelectedIndex = -1;
-                rbNewsStatusTrue.IsChecked = false; // Assuming rbNewsStatusTrue is the RadioButton for true status
+                rbNewsStatusTrue.IsChecked = false; 
 
-                // Clear tag selection
                 foreach (var item in lstTags.Items)
                 {
                     var listBoxItem = lstTags.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;

@@ -30,18 +30,6 @@ namespace FUNewsWPF
         private SystemAccount account;
         private Dictionary<string, bool> tagSelectionStatus = new Dictionary<string, bool>();
         
-        /*public NewsArticleUI(SystemAccount systemAccount)
-        {
-            InitializeComponent();
-            iNewsArticleService = new NewsArticleService();
-            iCategoryService = new CategoryService();
-            iTagService = new TagService();
-            account = systemAccount;
-            if (account != null)
-            {
-                DisableEditingFeatures();
-            }
-        }*/
 
         public NewsArticleUI()
         {
@@ -58,9 +46,7 @@ namespace FUNewsWPF
             {
                 var neArList = iNewsArticleService.GetNewsArticles();
                 dgNewsArticles.ItemsSource = neArList;
-/*                var cateList = iCategoryService.GetCategories();
-                cboCategory.ItemsSource = cateList;
-*/
+
             }
             catch (Exception ex)
             {
@@ -68,7 +54,7 @@ namespace FUNewsWPF
             }
             finally
             {
-                //resetInput();
+                
             }
         }
 
@@ -82,12 +68,12 @@ namespace FUNewsWPF
 
         public void LoadTagList()
         {
-            var tags = iTagService.GetTags(); // Giả sử iTagService.GetTags() trả về List<Tag>
+            var tags = iTagService.GetTags(); 
             foreach (var tag in tags)
             {
                 if (!tagSelectionStatus.ContainsKey(tag.TagName))
                 {
-                    tagSelectionStatus[tag.TagName] = false; // Khởi tạo trạng thái không chọn
+                    tagSelectionStatus[tag.TagName] = false; 
                 }
             }
             lstTags.ItemsSource = tags;
@@ -364,7 +350,7 @@ namespace FUNewsWPF
                         EnableEditingFeatures();
                     }
                 }
-                 // Kích hoạt các chức năng chỉnh sửa
+                 
             }
             else
             {
