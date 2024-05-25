@@ -48,8 +48,8 @@ namespace FUNewsWPF
         {
             if(txtUser.Text.Equals(defaultEmail) && txtPass.Password.Equals(defaultPassword))
             {
-                AccountManagement accountManagement = new AccountManagement();
-                accountManagement.Show();
+                //AccountManagement accountManagement = new AccountManagement();
+                //accountManagement.Show();
                 Role = LoginRole.Admin;
                 this.DialogResult = false;
                 this.Close();

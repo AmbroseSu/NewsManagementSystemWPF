@@ -24,11 +24,12 @@
 
             <!-- Menu -->
             <Menu x:Name="mnMenu" Grid.Row="0" Margin="-2,-14,2,62">
-                <MenuItem Header="Another Feature" FontSize="15">
+                <MenuItem x:Name="miFeature" Header="Another Feature" FontSize="15">
                     <MenuItem x:Name="miCategory" Header="Category" Click="miCategory_Click" />
                     <MenuItem x:Name="miTag" Header="Tag" Click="miTag_Click"/>
                     <MenuItem x:Name="miProfile" Header="Profile" Click="miProfile_Click"/>
                 </MenuItem>
+                <MenuItem x:Name="miAccount" Header="Account Management" FontSize="15" Click="miAccount_Click"/>
 
             </Menu>
 

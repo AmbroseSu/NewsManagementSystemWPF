@@ -48,11 +48,13 @@ namespace FUNewsWPF
                 {
                     var neArList = iNewsArticleService.GetNewsArticles();
                     dgNewsArticles.ItemsSource = neArList;
+                    txtFindResult.Text = neArList.Count.ToString() + " News Article";
                 }
                 else
                 {
                     var neArList = iNewsArticleService.GetNewsArticlesByCreateById(account.AccountId);
                     dgNewsArticles.ItemsSource = neArList;
+                    txtFindResult.Text = neArList.Count.ToString() + " News Article";
                 }
                 
 
@@ -340,6 +342,7 @@ namespace FUNewsWPF
                 {
                     account = login.LoggedInAccount;
                     mnMenu.IsEnabled = true;
+                    //miAccount.Visibility = Visibility.Collapsed;
                     EnableEditingFeatures();
                 }
                 else
@@ -348,6 +351,7 @@ namespace FUNewsWPF
                     {
                         account = login.LoggedInAccount;
                         mnMenu.IsEnabled =false;
+                        //miAccount.Visibility = Visibility.Collapsed;
                         EnableEditingFeatures();
                     }
                 }
@@ -355,7 +359,26 @@ namespace FUNewsWPF
             }
             else
             {
-                this.Close();
+                mnMenu.Visibility = Visibility.Visible;
+                mnMenu.IsEnabled = true;
+                miFeature.Visibility = Visibility.Collapsed;
+                gbNewsArticleDetail.Visibility = Visibility.Visible;
+                miAccount.Visibility = Visibility.Visible;
+                btnCreate.IsEnabled = false;
+
+                btnUpdate.IsEnabled = false;
+
+                btnDelete.IsEnabled = false;
+
+                btnReset.IsEnabled = false;
+
+                txtNewsArticleId.IsEnabled = false;
+                txtNewsTitle.IsEnabled = false;
+                txtNewsContent.IsEnabled = false;
+                cboCategory.IsEnabled = false;
+                rbNewsStatusTrue.IsEnabled = false;
+                rbNewsStatusFalse.IsEnabled = false;
+                lstTags.IsEnabled = false;
             }
         }
 
@@ -363,6 +386,7 @@ namespace FUNewsWPF
         {
             gbNewsArticleDetail.Visibility = Visibility.Collapsed;
             mnMenu.Visibility = Visibility.Collapsed;
+            
             btnCreate.IsEnabled = false;
 
             btnUpdate.IsEnabled = false;          
@@ -384,6 +408,7 @@ namespace FUNewsWPF
         {
             gbNewsArticleDetail.Visibility = Visibility.Visible;
             mnMenu.Visibility = Visibility.Visible;
+            miAccount.Visibility = Visibility.Collapsed;
             btnCreate.IsEnabled = true;
             btnUpdate.IsEnabled = true;
             btnDelete.IsEnabled = true;
@@ -547,6 +572,19 @@ namespace FUNewsWPF
                     LoadTagList();
                 }
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void miAccount_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AccountManagement accountManagement = new AccountManagement();
+                accountManagement.Show();
             }
             catch (Exception ex)
             {

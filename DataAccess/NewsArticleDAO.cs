@@ -190,6 +190,7 @@ namespace DataAccess
         public static List<NewsArticle> GetNewsArticlesByStartEndDay(DateTime? startDate, DateTime? endDate)
         {
             using var context = new FunewsManagementDbContext();
+            
             return context.NewsArticles
                           .Include(cr => cr.Category)
                           .Include(cr => cr.Tags)
