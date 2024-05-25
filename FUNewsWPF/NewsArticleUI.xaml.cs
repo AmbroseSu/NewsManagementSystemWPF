@@ -328,6 +328,7 @@ namespace FUNewsWPF
                     checkBox.IsChecked = false;
                 }
             }
+            
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -508,6 +509,49 @@ namespace FUNewsWPF
 
 
 
+        }
+
+        private void btnFind_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DateTime? startDate = dpStartDate.SelectedDate;
+                DateTime? endDate = dpEndDate.SelectedDate;
+                List<NewsArticle> findResults = new List<NewsArticle>();
+                if (startDate == null || endDate == null)
+                {
+                    MessageBox.Show("Please select both start date and end date.");
+                    var neArList = iNewsArticleService.GetNewsArticles();
+                    dgNewsArticles.ItemsSource = neArList;
+                    return;
+                }
+                else
+                {
+                    DateTime startTime = startDate.Value.Date;
+                    DateTime endTime = endDate.Value.Date;
+
+                    // Nếu endTime là ngày hiện tại
+                    if (endTime.Date == DateTime.Today)
+                    {
+                        endTime = DateTime.Now;
+                    }
+                    // Nếu endTime ở tương lai
+                    else if (endTime.Date > DateTime.Today)
+                    {
+                        endTime = endTime.Date.AddDays(1).AddTicks(-1);
+                    }
+                    findResults = iNewsArticleService.GetNewsArticlesByStartEndDay(startTime, endTime);
+                    dgNewsArticles.ItemsSource = findResults;
+                    txtFindResult.Text = findResults.Count.ToString() + " News Article";
+                    LoadCategoryList();
+                    LoadTagList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

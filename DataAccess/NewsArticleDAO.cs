@@ -187,6 +187,16 @@ namespace DataAccess
                           .ToList();
         }
 
+        public static List<NewsArticle> GetNewsArticlesByStartEndDay(DateTime? startDate, DateTime? endDate)
+        {
+            using var context = new FunewsManagementDbContext();
+            return context.NewsArticles
+                          .Include(cr => cr.Category)
+                          .Include(cr => cr.Tags)
+                          .Where(cr => cr.CreatedDate >= startDate.Value && cr.CreatedDate <= endDate.Value)
+                          .ToList();
+        }
+
 
 
     }

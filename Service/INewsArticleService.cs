@@ -21,5 +21,6 @@ namespace Service
         List<NewsArticle> GetNewsArticlesByStatus(bool status);
         List<NewsArticle> GetNewsArticlesByTag(string tag);
         List<NewsArticle> GetNewsArticlesByCreateById(short id);
+        List<NewsArticle> GetNewsArticlesByStartEndDay(DateTime? startDate, DateTime? endDate);
     }
 }

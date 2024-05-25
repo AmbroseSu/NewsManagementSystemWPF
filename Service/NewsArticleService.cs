@@ -71,7 +71,10 @@ namespace Service
         {
             return iNewsArticleRepository.GetNewsArticlesByCreateById(id);
         }
-
+        public List<NewsArticle> GetNewsArticlesByStartEndDay(DateTime? startDate, DateTime? endDate)
+        {
+            return iNewsArticleRepository.GetNewsArticlesByStartEndDay(startDate, endDate);
+        }
 
 
     }

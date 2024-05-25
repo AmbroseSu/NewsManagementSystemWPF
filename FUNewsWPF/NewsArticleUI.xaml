@@ -50,6 +50,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+
                 </Grid.RowDefinitions>
 
                 <Label Content="News Article ID" Grid.Row="0" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
@@ -103,6 +105,23 @@
                         <ComboBoxItem Content="Tags"/>
                     </ComboBox>
                     <Button x:Name="btnSearch" Grid.Column="2" Content="Search" Width="100" Margin="5,0,0,0" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnSearch_Click" />
+                </Grid>
+                <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="5,5,5,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Start Date" Grid.Column="0" Margin="3,0,7,0" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dpStartDate" Grid.Column="1" Margin="59,5,0,5" HorizontalAlignment="Left" Width="159" Grid.ColumnSpan="3"/>
+                    <Label Content="End Date" Grid.Column="2" Margin="77,0,83,0" VerticalAlignment="Center" RenderTransformOrigin="1.932,1.253" Grid.ColumnSpan="2"/>
+                    <DatePicker x:Name="dpEndDate" Grid.Column="3" Margin="156,5,121,5" Grid.ColumnSpan="3"/>
+                    <Button x:Name="btnFind" Content="Find" Grid.Column="4" Margin="95,0,10,5" Background="#4CAF50" Foreground="White" Padding="10,5" Width="100" Click="btnFind_Click" Grid.ColumnSpan="2"/>
+                    <TextBlock x:Name="txtFindResult" Grid.Column="6" Margin="10,0,0,0" VerticalAlignment="Center" Height="31" />
                 </Grid>
             </Grid>
         </GroupBox>
