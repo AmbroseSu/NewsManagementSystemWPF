@@ -8,7 +8,7 @@
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         Title="News Article Management" Height="750" Width="900">
-    <Grid Margin="10">
+    <Grid Margin="10,20,10,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -59,7 +59,7 @@
                 <TextBox x:Name="txtNewsTitle" Grid.Row="1" Grid.Column="1" Margin="5"/>
 
                 <Label Content="News Content" Grid.Row="2" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtNewsContent" Grid.Row="2" Grid.Column="1" Margin="5" TextWrapping="Wrap" MaxHeight="100"/>
+                <TextBox x:Name="txtNewsContent" Grid.Row="2" Grid.Column="1" Margin="5" TextWrapping="Wrap" MaxHeight="60"/>
 
                 <Label Content="Category" Grid.Row="3" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
                 <ComboBox x:Name="cboCategory" Grid.Row="3" Grid.Column="1" Margin="5"/>
@@ -88,21 +88,28 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <Label x:Name="lbSearch" Content="Search" Grid.Row="6" Grid.Column="0" Margin="5" VerticalAlignment="Center"/>
-                <TextBox x:Name="txtSearch" Grid.Row="6" Grid.Column="1" Margin="5,5,301,5"/>
-                <ComboBox x:Name="cboSearch" Grid.Row="6" Grid.Column="1" Width="150" Margin="420,5,128,5">
-                    <ComboBoxItem Content="News Article ID"/>
-                    <ComboBoxItem Content="News Title"/>
-                    <ComboBoxItem Content="Category"/>
-                    <ComboBoxItem Content="News Status"/>
-                    <ComboBoxItem Content="Tags"/>
-                </ComboBox>
-                <Button x:Name="btnSearch" Content="Search" Grid.Row="6" Grid.Column="1" Width="100" Margin="588,5,10,5" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnSearch_Click"/>
+                <Grid Grid.Row="6" Grid.Column="1" Margin="5,5,5,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="txtSearch" Grid.Column="0" Margin="0,0,25,0"/>
+                    <ComboBox x:Name="cboSearch" Grid.Column="1" Width="183" Margin="0,0,25,0">
+                        <ComboBoxItem Content="News Article ID"/>
+                        <ComboBoxItem Content="News Title"/>
+                        <ComboBoxItem Content="Category"/>
+                        <ComboBoxItem Content="News Status"/>
+                        <ComboBoxItem Content="Tags"/>
+                    </ComboBox>
+                    <Button x:Name="btnSearch" Grid.Column="2" Content="Search" Width="100" Margin="5,0,0,0" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnSearch_Click" />
+                </Grid>
             </Grid>
         </GroupBox>
 
 
         <Border Grid.Row="1" BorderBrush="#2E86C1" BorderThickness="2" CornerRadius="5" Margin="0,208,0,0" Grid.RowSpan="2">
-            <DataGrid x:Name="dgNewsArticles" Margin="10,-2,8,10" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="LightGray" GridLinesVisibility="Horizontal"
+            <DataGrid x:Name="dgNewsArticles" Margin="10,-4,8,12" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column" AlternatingRowBackground="LightGray" GridLinesVisibility="Horizontal"
               ScrollViewer.CanContentScroll="False"
               ScrollViewer.VerticalScrollBarVisibility="Auto"
               ScrollViewer.HorizontalScrollBarVisibility="Auto" SelectionChanged="dgNewsArticles_SelectionChanged">
@@ -115,7 +122,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="CreatedDate" Binding="{Binding CreatedDate}" Width="110"/>
+                    <DataGridTextColumn Header="CreatedDate" Binding="{Binding CreatedDate}" Width="120"/>
                     <DataGridTemplateColumn Header="NewsContent" Width="200">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

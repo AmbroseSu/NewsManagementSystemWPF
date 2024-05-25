@@ -102,6 +102,16 @@ namespace FUNewsWPF
             {
                 DisableEditingFeatures();
             }
+            if (cboSearch.Items.Count > 0)
+            {
+                // Lấy ComboBoxItem đầu tiên
+                ComboBoxItem firstItem = cboSearch.Items[0] as ComboBoxItem;
+                if (firstItem != null)
+                {
+                    // Gán nội dung của ComboBoxItem đầu tiên vào cboSearch.Text
+                    cboSearch.Text = firstItem.Content.ToString();
+                }
+            }
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -123,22 +133,30 @@ namespace FUNewsWPF
         {
             if (dgNewsArticles.SelectedItem != null)
             {
-                // Lấy dữ liệu của dòng được chọn
+                
                 NewsArticle selectedNewsArticle = dgNewsArticles.SelectedItem as NewsArticle;
 
-                // Tạo một instance của CreateCategoryUI
-                NewsArticleManagerUI newsArticleManagerUI = new NewsArticleManagerUI(selectedNewsArticle);
+                if (selectedNewsArticle.CreatedById == account.AccountId)
+                {
+                    NewsArticleManagerUI newsArticleManagerUI = new NewsArticleManagerUI(selectedNewsArticle);
 
-                // Mở cửa sổ CreateCategoryUI
-                newsArticleManagerUI.Show();
+                    
+                    newsArticleManagerUI.Show();
 
-                // Đăng ký sự kiện xử lý khi cửa sổ CreateCategoryUI được đóng
-                newsArticleManagerUI.Closed += (s, args) => {
-                    // Load lại danh sách Category khi cửa sổ CreateCategoryUI được đóng
-                    LoadCategoryList();
-                    LoadTagList() ;
-                    LoadNewsArticlesList() ;
-                };
+                    
+                    newsArticleManagerUI.Closed += (s, args) => {
+                        
+                        LoadCategoryList();
+                        LoadTagList();
+                        LoadNewsArticlesList();
+                    };
+                }
+                else
+                {
+                    MessageBox.Show("You do not have permission to modify this infomation");
+                }
+                
+                
             }
             else
             {
@@ -334,6 +352,7 @@ namespace FUNewsWPF
                 if(login.Role == LoginRole.Staff)
                 {
                     account = login.LoggedInAccount;
+                    mnMenu.IsEnabled = true;
                     EnableEditingFeatures();
                 }
                 else

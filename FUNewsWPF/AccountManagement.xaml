@@ -52,16 +52,21 @@
                 <TextBox x:Name="txtAccountRole" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5"/>
 
                 <Label x:Name="lbSearch" Content="Search" Grid.Row="5" Grid.Column="0" Margin="5,0,5,0" VerticalAlignment="Center"/>
-                <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Margin="5,5,5,5">
-                    <TextBox x:Name="txtSearch" Width="350" Margin="0,0,25,0"/>
-                    <ComboBox x:Name="cboSearch" Width="183" Margin="0,0,25,0">
+                <Grid Grid.Row="5" Grid.Column="1" Margin="5,5,5,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="txtSearch" Grid.Column="0" Margin="0,0,25,0"/>
+                    <ComboBox x:Name="cboSearch" Grid.Column="1" Width="183" Margin="0,0,25,0">
                         <ComboBoxItem Content="Account ID"/>
                         <ComboBoxItem Content="Account Name"/>
                         <ComboBoxItem Content="Account Email"/>
                         <ComboBoxItem Content="Account Role"/>
                     </ComboBox>
-                    <Button x:Name="btnSearch" Content="Search" Width="100" Margin="5,0,0,0" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnSearch_Click" />
-                </StackPanel>
+                    <Button x:Name="btnSearch" Grid.Column="2" Content="Search" Width="100" Margin="5,0,0,0" Background="#4CAF50" Foreground="White" Padding="10,5" Click="btnSearch_Click" />
+                </Grid>
 
             </Grid>
         </GroupBox>

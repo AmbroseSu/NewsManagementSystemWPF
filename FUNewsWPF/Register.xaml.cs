@@ -4,6 +4,7 @@ using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -42,7 +43,20 @@ namespace FUNewsWPF
             txtAccountName.Text = accountToUpdate.AccountName;
             txtAccountEmail.Text = accountToUpdate.AccountEmail;
             txtAccountPassword.Text = accountToUpdate.AccountPassword;
-            txtAccountRole.Text = accountToUpdate.AccountRole.ToString();
+            if(accountToUpdate.AccountRole == 1)
+            {
+                cboAccountRole.Text = "Staff";
+            }
+            else
+            {
+                if(accountToUpdate.AccountRole == 2)
+                {
+                    cboAccountRole.Text = "Lecturer";
+                }
+            }
+            
+            //accountToUpdate.AccountRole.ToString();
+
         }
 
         private void Window_Loaded(Object sender, RoutedEventArgs e)
@@ -57,6 +71,19 @@ namespace FUNewsWPF
                 btnUpdate.IsEnabled = false;
             }
 
+            if (cboAccountRole.Items.Count > 0)
+            {
+                // Lấy ComboBoxItem đầu tiên
+                ComboBoxItem firstItem = cboAccountRole.Items[1] as ComboBoxItem;
+                if (firstItem != null)
+                {
+                    // Gán nội dung của ComboBoxItem đầu tiên vào cboSearch.Text
+                    cboAccountRole.Text = firstItem.Content.ToString();
+                }
+            }
+
+
+
 
         }
 
@@ -70,7 +97,7 @@ namespace FUNewsWPF
                 txtAccountName.Text = "";
                 txtAccountEmail.Text = "";
                 txtAccountPassword.Text = "";
-                txtAccountRole.Text = "";
+                cboAccountRole.Text = "";
             }
             else
             {
@@ -78,9 +105,10 @@ namespace FUNewsWPF
                 txtAccountName.Text = "";
                 txtAccountEmail.Text = "";
                 txtAccountPassword.Text = "";
-                txtAccountRole.Text = "";
+                cboAccountRole.Text = "";
             }
         }
+        
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
@@ -100,7 +128,7 @@ namespace FUNewsWPF
                 if(string.IsNullOrEmpty(txtAccountName.Text) ||
                     string.IsNullOrEmpty(txtAccountEmail.Text) ||
                     string.IsNullOrEmpty(txtAccountPassword.Text) ||
-                    string.IsNullOrEmpty(txtAccountRole.Text))
+                    string.IsNullOrEmpty(cboAccountRole.Text))
                 {
                     MessageBox.Show("All fields must be filled.");
                     return;
@@ -110,9 +138,30 @@ namespace FUNewsWPF
                 SystemAccount account = new SystemAccount();
                 account.AccountId = short.Parse(txtAccountID.Text);
                 account.AccountName = txtAccountName.Text;
-                account.AccountEmail = txtAccountEmail.Text;
+                if (IsValid(txtAccountEmail.Text))
+                {
+                    account.AccountEmail = txtAccountEmail.Text;
+                }
+                else
+                {
+                    MessageBox.Show("Please insert correct form email.");
+                    return;
+                }
+                
                 account.AccountPassword = txtAccountPassword.Text;
-                account.AccountRole = int.Parse(txtAccountRole.Text);
+                string selectedRole = (cboAccountRole.SelectedItem as ComboBoxItem)?.Content.ToString();
+                if (selectedRole.Equals("Staff"))
+                {
+                    account.AccountRole = 1;
+                }
+                else
+                {
+                    if (selectedRole.Equals("Lecturer"))
+                    {
+                        account.AccountRole = 2;
+                    }
+                }
+                //account.AccountRole = int.Parse(txtAccountRole.Text);
                 iSystemAccountService.SaveAccount(account);
                 MessageBox.Show("Create Account Successfully");
                 this.Close();
@@ -138,7 +187,19 @@ namespace FUNewsWPF
                     account.AccountName = txtAccountName.Text;
                     account.AccountEmail = txtAccountEmail.Text;
                     account.AccountPassword = txtAccountPassword.Text;
-                    account.AccountRole = int.Parse(txtAccountRole.Text);
+                    string selectedRole = (cboAccountRole.SelectedItem as ComboBoxItem)?.Content.ToString();
+                    if (selectedRole.Equals("Staff"))
+                    {
+                        account.AccountRole = 1;
+                    }
+                    else
+                    {
+                        if (selectedRole.Equals("Lecturer"))
+                        {
+                            account.AccountRole = 2;
+                        }
+                    }
+                    //account.AccountRole = int.Parse(txtAccountRole.Text);
                     iSystemAccountService.UpdateAccount(account);
                     MessageBox.Show("Account Update Successfully.");
                     this.Close();
@@ -163,5 +224,22 @@ namespace FUNewsWPF
         {
             this.Close();
         }
+
+        private static bool IsValid(string email)
+        {
+            var valid = true;
+
+            try
+            {
+                var emailAddress = new MailAddress(email);
+            }
+            catch
+            {
+                valid = false;
+            }
+
+            return valid;
+        }
+
     }
 }

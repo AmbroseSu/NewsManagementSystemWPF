@@ -52,6 +52,16 @@ namespace FUNewsWPF
             LoadTagList();
             txtTagName.IsEnabled = false;
             txtNote.IsEnabled = false;
+            if (cboSearch.Items.Count > 0)
+            {
+                // Lấy ComboBoxItem đầu tiên
+                ComboBoxItem firstItem = cboSearch.Items[0] as ComboBoxItem;
+                if (firstItem != null)
+                {
+                    // Gán nội dung của ComboBoxItem đầu tiên vào cboSearch.Text
+                    cboSearch.Text = firstItem.Content.ToString();
+                }
+            }
         }
 
         private void resetInput()

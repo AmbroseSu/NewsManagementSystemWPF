@@ -93,7 +93,10 @@ namespace DataAccess
         public static List<NewsArticle> GetNewsArticlesById(string id)
         {
             using var context = new FunewsManagementDbContext();
-            return context.NewsArticles.Where(n => EF.Functions.Like(n.NewsArticleId, $"%{id}%"))
+            return context.NewsArticles
+                .Include(n => n.Category)
+                .Include(n => n.Tags)
+                .Where(n => EF.Functions.Like(n.NewsArticleId, $"%{id}%"))
                     .ToList();
         }
 
@@ -111,6 +114,8 @@ namespace DataAccess
             {
                 using var context = new FunewsManagementDbContext();
                 return context.NewsArticles
+                    .Include(n => n.Category)
+                    .Include(n => n.Tags)
                     .Where(n => EF.Functions.Like(n.NewsTitle, $"%{title}%"))
                     .ToList();
             }
@@ -127,6 +132,8 @@ namespace DataAccess
             {
                 using var context = new FunewsManagementDbContext();
                 return context.NewsArticles
+                    .Include(n => n.Category)
+                    .Include(n => n.Tags)
                     .Where(n => n.CategoryId == categoryId)
                     .ToList();
             }
@@ -142,6 +149,8 @@ namespace DataAccess
             {
                 using var context = new FunewsManagementDbContext();
                 return context.NewsArticles
+                    .Include(n => n.Category)
+                    .Include(n => n.Tags)
                     .Where(n => n.NewsStatus.Equals(status))
                     .ToList();
             }
@@ -156,12 +165,11 @@ namespace DataAccess
             try
             {
                 using var context = new FunewsManagementDbContext();
-                // Lấy danh sách bài báo có chứa tag có id tương ứng
                 return context.NewsArticles
-                                  .Include(na => na.Tags)
-                                  .Where(na => na.Tags.Any(t => t.TagName.Equals(tag)))
-                                  .ToList();
-
+                              .Include(na => na.Tags)
+                              .Include(na => na.Category)
+                              .Where(na => na.Tags.Any(t => EF.Functions.Like(t.TagName, $"%{tag}%")))
+                              .ToList();
             }
             catch (Exception ex)
             {
