@@ -4,6 +4,7 @@ using Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -70,7 +71,16 @@ namespace FUNewsWPF
                     SystemAccount account = new SystemAccount();
                     account.AccountId = short.Parse(txtAccountId.Text);
                     account.AccountName = txtAccountName.Text;
-                    account.AccountEmail = txtAccountEmail.Text;
+                    //account.AccountEmail = txtAccountEmail.Text;
+                    if (IsValid(txtAccountEmail.Text))
+                    {
+                        account.AccountEmail = txtAccountEmail.Text;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please insert correct form email.");
+                        return;
+                    }
                     account.AccountPassword = txtAccountPassword.Text;
                     account.AccountRole = int.Parse(txtAccountRole.Text);
                     iSystemAccountService.UpdateAccount(account);
@@ -97,5 +107,22 @@ namespace FUNewsWPF
         {
             this.Close();
         }
+
+        private static bool IsValid(string email)
+        {
+            var valid = true;
+
+            try
+            {
+                var emailAddress = new MailAddress(email);
+            }
+            catch
+            {
+                valid = false;
+            }
+
+            return valid;
+        }
+
     }
 }

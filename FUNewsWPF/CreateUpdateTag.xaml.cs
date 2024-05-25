@@ -45,13 +45,11 @@ namespace FUNewsWPF
         {
             if (!string.IsNullOrEmpty(txtTagId.Text))
             {
-                // Nếu có giá trị, khóa nút btnCreateCategory
                 txtTagId.IsEnabled = false;
                 btnCreate.IsEnabled = false;
             }
             else
             {
-                // Nếu không có giá trị, khóa nút btnUpdateCategory
                 btnUpdate.IsEnabled = false;
                 txtTagId.IsEnabled = true;
             }
@@ -61,13 +59,11 @@ namespace FUNewsWPF
         {
             if (!string.IsNullOrEmpty(txtTagId.Text))
             {
-                // Nếu có giá trị, khóa nút btnCreateCategory              
                 txtTagName.Text = "";
                 txtNote.Text = "";
             }
             else
             {
-                // Nếu không có giá trị, khóa nút btnUpdateCategory
                 txtTagId.Text = "";
                 txtTagName.Text = "";
                 txtNote.Text = "";

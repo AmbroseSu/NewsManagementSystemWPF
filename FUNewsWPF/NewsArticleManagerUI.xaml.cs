@@ -97,7 +97,6 @@ namespace FUNewsWPF
                         }
                     }
 
-                    // Đặt trạng thái các CheckBox đã chọn
                     foreach (var articleTag in newsArticleToUpdate.Tags)
                     {
                         foreach (var item in lstTags.Items)

@@ -54,11 +54,9 @@ namespace FUNewsWPF
             txtNote.IsEnabled = false;
             if (cboSearch.Items.Count > 0)
             {
-                // Lấy ComboBoxItem đầu tiên
                 ComboBoxItem firstItem = cboSearch.Items[0] as ComboBoxItem;
                 if (firstItem != null)
                 {
-                    // Gán nội dung của ComboBoxItem đầu tiên vào cboSearch.Text
                     cboSearch.Text = firstItem.Content.ToString();
                 }
             }
@@ -100,7 +98,6 @@ namespace FUNewsWPF
 
             createUpdateTag.Show();
             createUpdateTag.Closed += (s, args) => {
-                // Load lại danh sách Category khi cửa sổ CreateCategoryUI được đóng
                 LoadTagList();
             };
         }
@@ -113,7 +110,6 @@ namespace FUNewsWPF
                 CreateUpdateTag createUpdateTag = new CreateUpdateTag(selectedTag);
                 createUpdateTag.Show();
                 createUpdateTag.Closed += (s, args) => {
-                    // Load lại danh sách Category khi cửa sổ CreateCategoryUI được đóng
                     LoadTagList();
                 };
 
@@ -130,12 +126,10 @@ namespace FUNewsWPF
             {
                 if (txtTagID.Text.Length > 0)
                 {
-                    // Hiển thị hộp thoại xác nhận
                     MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this category?", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.OK)
                     {
-                        // Nếu người dùng chọn OK
                         Tag tag = new Tag();
                         tag.TagId = int.Parse(txtTagID.Text);
                         tag.TagName = txtTagName.Text;
@@ -144,7 +138,6 @@ namespace FUNewsWPF
                     }
                     else
                     {
-                        // Nếu người dùng chọn Cancel hoặc đóng hộp thoại
                         return;
                     }
                 }
@@ -184,7 +177,6 @@ namespace FUNewsWPF
                 {
                     var tagList = iTagService.GetTags();
                     dgTags.ItemsSource = tagList;
-                    //MessageBox.Show("Please enter search text and select a search criterion.", "Search", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 

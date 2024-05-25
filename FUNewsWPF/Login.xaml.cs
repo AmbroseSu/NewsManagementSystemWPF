@@ -34,8 +34,8 @@ namespace FUNewsWPF
             InitializeComponent();
             iSystemAccountService = new SystemAccountService();
             var builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory()) // Đặt đường dẫn cơ sở
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true); // Thêm file appsettings.json
+            .SetBasePath(Directory.GetCurrentDirectory()) 
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true); 
 
             IConfiguration configuration = builder.Build();
 
@@ -67,7 +67,7 @@ namespace FUNewsWPF
                     categoryUI.Show();*/
                     LoggedInAccount = systemAccount;
                     Role = LoginRole.Staff;
-                    this.DialogResult = true; // Đóng cửa sổ và trả về kết quả thành công
+                    this.DialogResult = true; 
                     this.Close();
 
                 }
@@ -77,7 +77,7 @@ namespace FUNewsWPF
                     {
                         LoggedInAccount = systemAccount;
                         Role = LoginRole.Lecturer;
-                        this.DialogResult = true; // Đóng cửa sổ và trả về kết quả thành công
+                        this.DialogResult = true; 
                         this.Close();
                     }
                     else

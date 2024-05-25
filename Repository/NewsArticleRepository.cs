@@ -21,6 +21,6 @@ namespace Repository
         public List<NewsArticle> GetNewsArticlesByCategory(short categoryId) => NewsArticleDAO.GetNewsArticlesByCategory(categoryId);
         public List<NewsArticle> GetNewsArticlesByStatus(bool status) => NewsArticleDAO.GetNewsArticlesByStatus(status);
         public List<NewsArticle> GetNewsArticlesByTag(string tag) => NewsArticleDAO.GetNewsArticlesByTag(tag);
-
+        public List<NewsArticle> GetNewsArticlesByCreateById(short id) => NewsArticleDAO.GetNewsArticlesByCreateById(id);
     }
 }

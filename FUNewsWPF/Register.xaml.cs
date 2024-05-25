@@ -73,11 +73,9 @@ namespace FUNewsWPF
 
             if (cboAccountRole.Items.Count > 0)
             {
-                // Lấy ComboBoxItem đầu tiên
                 ComboBoxItem firstItem = cboAccountRole.Items[1] as ComboBoxItem;
                 if (firstItem != null)
                 {
-                    // Gán nội dung của ComboBoxItem đầu tiên vào cboSearch.Text
                     cboAccountRole.Text = firstItem.Content.ToString();
                 }
             }
@@ -161,7 +159,6 @@ namespace FUNewsWPF
                         account.AccountRole = 2;
                     }
                 }
-                //account.AccountRole = int.Parse(txtAccountRole.Text);
                 iSystemAccountService.SaveAccount(account);
                 MessageBox.Show("Create Account Successfully");
                 this.Close();
@@ -185,7 +182,16 @@ namespace FUNewsWPF
                     SystemAccount account = new SystemAccount();
                     account.AccountId = short.Parse(txtAccountID.Text);
                     account.AccountName = txtAccountName.Text;
-                    account.AccountEmail = txtAccountEmail.Text;
+                    //account.AccountEmail = txtAccountEmail.Text;
+                    if (IsValid(txtAccountEmail.Text))
+                    {
+                        account.AccountEmail = txtAccountEmail.Text;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please insert correct form email.");
+                        return;
+                    }
                     account.AccountPassword = txtAccountPassword.Text;
                     string selectedRole = (cboAccountRole.SelectedItem as ComboBoxItem)?.Content.ToString();
                     if (selectedRole.Equals("Staff"))
@@ -199,7 +205,6 @@ namespace FUNewsWPF
                             account.AccountRole = 2;
                         }
                     }
-                    //account.AccountRole = int.Parse(txtAccountRole.Text);
                     iSystemAccountService.UpdateAccount(account);
                     MessageBox.Show("Account Update Successfully.");
                     this.Close();

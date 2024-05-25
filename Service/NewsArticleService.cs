@@ -67,6 +67,11 @@ namespace Service
             return iNewsArticleRepository.GetNewsArticlesByTag(tag);
         }
 
+        public List<NewsArticle> GetNewsArticlesByCreateById(short id)
+        {
+            return iNewsArticleRepository.GetNewsArticlesByCreateById(id);
+        }
+
 
 
     }

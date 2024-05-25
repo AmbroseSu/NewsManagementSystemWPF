@@ -177,6 +177,16 @@ namespace DataAccess
             }
         }
 
+        public static List<NewsArticle> GetNewsArticlesByCreateById(short id)
+        {
+            using var context = new FunewsManagementDbContext();
+            return context.NewsArticles
+                          .Include(cr => cr.Category)
+                          .Include(cr => cr.Tags)
+                          .Where(cr => cr.CreatedById == id)
+                          .ToList();
+        }
+
 
 
     }

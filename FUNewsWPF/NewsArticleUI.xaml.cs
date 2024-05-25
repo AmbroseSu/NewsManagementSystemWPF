@@ -44,8 +44,17 @@ namespace FUNewsWPF
         {
             try
             {
-                var neArList = iNewsArticleService.GetNewsArticles();
-                dgNewsArticles.ItemsSource = neArList;
+                if(account == null)
+                {
+                    var neArList = iNewsArticleService.GetNewsArticles();
+                    dgNewsArticles.ItemsSource = neArList;
+                }
+                else
+                {
+                    var neArList = iNewsArticleService.GetNewsArticlesByCreateById(account.AccountId);
+                    dgNewsArticles.ItemsSource = neArList;
+                }
+                
 
             }
             catch (Exception ex)
@@ -90,11 +99,9 @@ namespace FUNewsWPF
             }
             if (cboSearch.Items.Count > 0)
             {
-                // Lấy ComboBoxItem đầu tiên
                 ComboBoxItem firstItem = cboSearch.Items[0] as ComboBoxItem;
                 if (firstItem != null)
                 {
-                    // Gán nội dung của ComboBoxItem đầu tiên vào cboSearch.Text
                     cboSearch.Text = firstItem.Content.ToString();
                 }
             }
@@ -104,10 +111,8 @@ namespace FUNewsWPF
         {
             NewsArticleManagerUI newsArticleManagerUI = new NewsArticleManagerUI(account);
 
-            // Mở cửa sổ CreateCategoryUI
             newsArticleManagerUI.Show();
             newsArticleManagerUI.Closed += (s, args) => {
-                // Load lại danh sách Category khi cửa sổ CreateCategoryUI được đóng
                 LoadCategoryList();
                 LoadTagList();
                 LoadNewsArticlesList();
@@ -171,12 +176,10 @@ namespace FUNewsWPF
 
                             if (newsArticle != null)
                             {
-                                // Remove associated tags from the NewsTag table
                                 var newsTags = context.Set<Dictionary<string, object>>("NewsTag")
                                     .Where(nt => EF.Property<string>(nt, "NewsArticleId") == newsArticleId).ToList();
                                 context.Set<Dictionary<string, object>>("NewsTag").RemoveRange(newsTags);
 
-                                // Remove the NewsArticle
                                 context.NewsArticles.Remove(newsArticle);
 
                                 context.SaveChanges();
@@ -191,7 +194,6 @@ namespace FUNewsWPF
                     }
                     else
                     {
-                        // Nếu người dùng chọn Cancel hoặc đóng hộp thoại
                         return;
                     }
                 }
@@ -249,7 +251,6 @@ namespace FUNewsWPF
                         }
                         else
                         {
-                            // If NewsStatus is null or invalid, reset both RadioButtons
                             rbNewsStatusTrue.IsChecked = false;
                             rbNewsStatusFalse.IsChecked = false;
                         }
@@ -264,7 +265,6 @@ namespace FUNewsWPF
                             }
                         }
 
-                        // Đặt trạng thái các CheckBox đã chọn
                         foreach (var articleTag in selectedNewsArticle.Tags)
                         {
                             foreach (var item in lstTags.Items)
@@ -316,9 +316,9 @@ namespace FUNewsWPF
             txtNewsTitle.Text = "";
             txtNewsContent.Text = "";
             cboCategory.SelectedIndex = -1;
-            rbNewsStatusTrue.IsChecked = false; // Assuming rbNewsStatusTrue is the RadioButton for true status
+            rbNewsStatusTrue.IsChecked = false; 
 
-            // Clear tag selection
+            
             foreach (var item in lstTags.Items)
             {
                 var listBoxItem = lstTags.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;
@@ -350,7 +350,7 @@ namespace FUNewsWPF
                         EnableEditingFeatures();
                     }
                 }
-                 
+                 LoadNewsArticlesList();
             }
             else
             {
@@ -397,7 +397,6 @@ namespace FUNewsWPF
             {
                 if (item is FrameworkElement element)
                 {
-                    // Tìm kiếm các controls kiểu CheckBox trong mỗi mục của ListBox
                     var checkBox = FindVisualChild<CheckBox>(element);
                     if (checkBox != null)
                     {
@@ -448,7 +447,7 @@ namespace FUNewsWPF
         {
             try
             {
-                string searchText = txtSearch.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
+                string searchText = txtSearch.Text.Trim(); 
                 string searchCriterion = (cboSearch.SelectedItem as ComboBoxItem)?.Content.ToString();
                 List<NewsArticle> searchResults = new List<NewsArticle>();
                 if (string.IsNullOrWhiteSpace(searchText) || string.IsNullOrWhiteSpace(searchCriterion))

@@ -37,7 +37,6 @@ namespace FUNewsWPF
             Loaded += Window_Loaded;
             categoryToUpdate = selectedCategory;
             
-            // Hiển thị dữ liệu trong các trường tương ứng
             txtCategoryId.Text = categoryToUpdate.CategoryId.ToString();
             txtCategoryName.Text = categoryToUpdate.CategoryName;
             txtCategoryDescription.Text = categoryToUpdate.CategoryDesciption;
@@ -48,13 +47,11 @@ namespace FUNewsWPF
         {
             if (!string.IsNullOrEmpty(txtCategoryId.Text))
             {
-                // Nếu có giá trị, khóa nút btnCreateCategory
                 txtCategoryId.IsEnabled = false;
                 btnCreateCategory.IsEnabled = false;
             }
             else
             {
-                // Nếu không có giá trị, khóa nút btnUpdateCategory
                 btnUpdateCategory.IsEnabled = false;
             }
         }
@@ -63,13 +60,11 @@ namespace FUNewsWPF
         {
             if (!string.IsNullOrEmpty(txtCategoryId.Text))
             {
-                // Nếu có giá trị, khóa nút btnCreateCategory              
                 txtCategoryName.Text = "";
                 txtCategoryDescription.Text = "";
             }
             else
             {
-                // Nếu không có giá trị, khóa nút btnUpdateCategory
                 txtCategoryId.Text = "";
                 txtCategoryName.Text = "";
                 txtCategoryDescription.Text = "";

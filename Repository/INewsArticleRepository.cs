@@ -20,5 +20,6 @@ namespace Repository
         List<NewsArticle> GetNewsArticlesByCategory(short categoryId);
         List<NewsArticle> GetNewsArticlesByStatus(bool status);
         List<NewsArticle> GetNewsArticlesByTag(string tag);
+        List<NewsArticle> GetNewsArticlesByCreateById(short id);
     }
 }
